@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Arbol } from 'src/app/models/arbol.model';
+
+import { parser } from 'src/app/utils/gramatica/gramatica.js';
 
 @Component({
   selector: 'app-ast',
@@ -8,25 +11,6 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AstComponent implements OnInit {
   public options: any;
-  public data = {
-    "name": "Raiz",
-    "children": [
-      {
-        "name": "Instruccion",
-        "children": [
-          { "name": "Suma", "children": [] },
-          { "name": "Resta" },
-          { "name": "Multiplicacion" },
-          { "name": "Division" }
-        ]
-      },
-      { "name": "Instruccion" },
-      { "name": "Instruccion" },
-      { "name": "Instruccion" }
-    ]
-  };
-
-
   public autoResize: boolean;
 
   constructor() {
@@ -43,7 +27,7 @@ export class AstComponent implements OnInit {
       series: [
         {
           type: 'tree',
-          data: [this.data],
+          data: [],
           orient: 'vertical',
 
           // width: '100%',
@@ -58,7 +42,7 @@ export class AstComponent implements OnInit {
           symbolSize: 10,
 
           roam: true,
-          initialTreeDepth: 3,
+          initialTreeDepth: 5,
 
           // edgeShape: 'polyline',
           // edgeForkPosition: '63%',
@@ -98,5 +82,12 @@ export class AstComponent implements OnInit {
     };
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    this.setData(<Arbol>parser.parse('2*3+10<30*3 && (true || false);2+4;').getAST());
+  }
+
+  public setData(data: any): void {
+    this.options.series[0].data = [data];
+    this.options.series[0].initialTreeDepth = 25;
+  }
 }

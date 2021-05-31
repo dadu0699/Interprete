@@ -25,7 +25,7 @@ export class ErroresComponent implements OnInit, AfterViewInit {
   constructor() {
     this.onResize();
     this.dataSource = new MatTableDataSource<any>();
-    this.displayedColumns = ['id', 'tipo', 'descripcion', 'linea', 'columna'];
+    this.displayedColumns = ['tipo', 'descripcion', 'linea', 'columna'];
     this.data = [
       { id: 1, tipo: 'Lexico', descripcion: 'Token invalido', linea: 1, columna: 1 },
       { id: 2, tipo: 'Lexico', descripcion: 'Token invalido', linea: 1, columna: 1 },

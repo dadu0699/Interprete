@@ -1,27 +1,129 @@
-# Interprete
+# Intérprete
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.0.2.
+Este proyecto se generó con [Angular CLI] (https://github.com/angular/angular-cli) versión 12.0.2.
 
-## Development server
+## **Contenido**   
+- [Ejecucion](#ejecucion)
+- [Dependencias](#dependencias)
+  - [Angular Material](#angularMaterial)
+  - [Bootstrap](#bootstrap)
+  - [CodeMirror](#codeMirror)
+  - [ECharts](#eCharts)
+  - [Jison](#jison)
+  - [Angular-cli-ghpages](#ghpages)
+- [Despliegue](#despliegue)
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+## Ejecucion<a name="ejecucion"></a>
+Es necesario instalar las dependencias utilizadas luego de ser descargado el proyecto, ejecutando el siguiente comando en la terminal
+```
+npm install
+```
 
-## Code scaffolding
+Para ejecutar el proyecto se debe ejecutar el siguiente comando
+```
+ng serve
+```
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Dependencias<a name="dependencias"></a>
+Dependencias utilizadas en la creación del intérprete 
 
-## Build
+### Angular Material<a name="angularMaterial"></a>
+Módulo de diseño material para componentes de angular, el cual se instaló a través del siguiente comando
+```
+ng add @angular/material
+```
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+### Bootstrap<a name="bootstrap"></a>
+Módulo de diseño, el cual se instaló a través del siguiente comando
+```
+npm install bootstrap
+```
 
-## Running unit tests
+Luego de la instalación se agregaron las siguientes líneas en las áreas de **_styles_** y **_scripts_** en el archivo [**_angular.json_**](./angular.json)
+```json
+...,
+"styles": [
+  ...,
+  "node_modules/bootstrap/dist/css/bootstrap.min.css"
+],
+"scripts": [
+  ...,
+  "node_modules/bootstrap/dist/js/bootstrap.min.js"
+],
+...
+```
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+### CodeMirror<a name="codeMirror"></a>
+Módulo de diseño el cual permite agregar un editor de texto o código, el cual se instaló a través del siguiente comando
+```
+npm install @ctrl/ngx-codemirror codemirror
+```
 
-## Running end-to-end tests
+Luego de la instalación se agregó las siguiente sección **_allowedCommonJsDependencies_** en el archivo [**_angular.json_**](./angular.json)
+```json
+...,
+"allowedCommonJsDependencies": [
+  "@ctrl/ngx-codemirror"
+],
+...
+```
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+### ECharts<a name="eCharts"></a>
+Módulo de diseño el cual permite agregar gráficas, el cual permitió crear el AST, se instaló a través de los siguientes comandos
+```
+npm install echarts
+npm install ngx-echarts
+```
+Luego de la instalación se agregaron las siguientes líneas en las áreas de **_scripts_** en el archivo [**_angular.json_**](./angular.json)
+```json
+...,
+"scripts": [
+  ...,
+  "node_modules/echarts/dist/echarts.min.js"
+],
+...
+```
 
-## Further help
+### Jison<a name="jison"></a>
+Módulo el cual permite crear el parser para el intérprete, para esto se necesitó instalar de manera global en el equipo
+```
+npm install -g jison 
+```
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+Para compilar la gramática es necesario abrir la terminal donde se encuentre el archivo con extensión **_.jison_** y ejecutar el siguiente comando
+```
+jison nombre.jison
+```
+
+Para poder utilizar nuestra gramática es necesario agregar las siguiente línea en el archivo [**_tsconfig.json_**](./tsconfig.json)
+```json
+...,
+"compilerOptions": {
+  ...,
+  "noImplicitAny": false
+},
+...
+```
+
+El cual permite importar nuestra gramática de la siguiente manera
+```ts
+// parser es el alias que se le dio al import 
+import { parser } from 'src/app/utils/gramatica/gramatica.js';
+```
+
+### Angular-cli-ghpages<a name="ghpages"></a>
+Módulo el cual permite desplegar el proyecto en github pages, para esto se necesitó instalar de manera global en el equipo
+```
+npm install -g angular-cli-ghpages
+```
+
+## Despliegue<a name="despliegue"></a>
+Para realizar el despliegue en github pages es necesario que primero se compile el proyecto, para esto ejecutamos el siguiente comando
+```
+ng build --prod --base-href "https://USERNAME.github.io/REPOSITORY_NAME/"
+```
+
+Luego de haber compilado el proyecto se puede realizar el despliegue a través del siguiente comando
+```
+angular-cli-ghpages --dir=dist/PROJECT_NAME
+```
