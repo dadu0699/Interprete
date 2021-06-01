@@ -9,7 +9,7 @@ export class Primitivo extends Nodo {
   constructor(tipoOBJ: Tipo, tipo: Tipo, valor: Object,
     linea: number, columna: number) {
     super(tipoOBJ, tipo, linea, columna);
-    this.valor = valor
+    this.valor = valor;
   }
 
   public ejecutar(_tabla: Tabla, _arbol: Arbol) {

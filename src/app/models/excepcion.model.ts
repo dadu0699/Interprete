@@ -1,12 +1,10 @@
-import { Tipo } from "./tipo.model";
-
 export class Excepcion {
-  public tipo: Tipo;
+  public tipo: string;
   public descripcion: string;
   public linea: number;
   public columna: number;
 
-  constructor(tipo: Tipo, descripcion: string,
+  constructor(tipo: string, descripcion: string,
     linea: number, columna: number) {
     this.tipo = tipo;
     this.descripcion = descripcion;
@@ -14,7 +12,7 @@ export class Excepcion {
     this.columna = columna;
   }
 
-  // public toString = (): string => {
-  //   return `${this.tipo} ${this.descripcion} ${this.linea} ${this.columna}`;
-  // }
+  public toString = (): string => {
+    return `\nError ${this.tipo} en la linea ${this.linea} y columna ${this.columna}: ${this.descripcion}\n`;
+  }
 }

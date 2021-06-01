@@ -4,6 +4,23 @@
   const { Tipo } = require('src/app/models/tipo.model');
 
   const { Primitivo } = require('src/app/controllers/expresiones/primitivo.controller');
+  // ARITMETICAS
+  const { Suma } = require('src/app/controllers/expresiones/aritmeticas/suma.controller');
+  const { Resta } = require('src/app/controllers/expresiones/aritmeticas/resta.controller');
+  const { Multiplicacion } = require('src/app/controllers/expresiones/aritmeticas/multiplicacion.controller');
+  const { Division } = require('src/app/controllers/expresiones/aritmeticas/division.controller');
+  const { Negativo } = require('src/app/controllers/expresiones/aritmeticas/negativo.controller');
+  // RELACIONALES
+  const { Mayor } = require('src/app/controllers/expresiones/relacionales/mayor.controller');
+  const { Menor } = require('src/app/controllers/expresiones/relacionales/menor.controller');
+  const { MayorQue } = require('src/app/controllers/expresiones/relacionales/mayorQue.controller');
+  const { MenorQue } = require('src/app/controllers/expresiones/relacionales/menorQue.controller');
+  const { Igualdad } = require('src/app/controllers/expresiones/relacionales/igualdad.controller');
+  const { Diferencia } = require('src/app/controllers/expresiones/relacionales/diferencia.controller');
+  // LOGICAS
+  const { And } = require('src/app/controllers/expresiones/logicas/and.controller');
+  const { Or } = require('src/app/controllers/expresiones/logicas/or.controller');
+  const { Not } = require('src/app/controllers/expresiones/logicas/not.controller');
 
   const { NodoGrafico } = require('src/app/utils/reports/nodoGrafico');
 
@@ -58,9 +75,9 @@ cadena            ({comillas}((?:\\{comillas}|(?:(?!{comillas}).))*){comillas})
 "&&"                    return '&&'
 "!"                     return '!'
 "="                     return '='
-"++"                    return '++'
+// "++"                    return '++'
 "+"                     return '+'
-"--"                    return '--'
+// "--"                    return '--'
 "-"                     return '-'
 "**"                    return '**'
 "*"                     return '*'
@@ -107,6 +124,7 @@ START : SENTENCIAS_GLOBALES EOF      {
       ;
 
 SENTENCIAS_GLOBALES : SENTENCIAS_GLOBALES SENTENCIA_GLOBAL    {
+                                                                $1.instrucciones.push($2.instrucciones);
                                                                 $$ = {
                                                                   instrucciones: $1.instrucciones,
                                                                   grafica: new NodoGrafico('SENTENCIAS_GLOBALES',
@@ -116,7 +134,7 @@ SENTENCIAS_GLOBALES : SENTENCIAS_GLOBALES SENTENCIA_GLOBAL    {
                                                               }
                     | SENTENCIA_GLOBAL                        {
                                                                 $$ = {
-                                                                  instrucciones: $1.instrucciones,
+                                                                  instrucciones: [$1.instrucciones],
                                                                   grafica: new NodoGrafico('SENTENCIAS_GLOBALES', [$1.grafica])
                                                                 }
                                                               }
@@ -137,7 +155,8 @@ EXPRESION
           // LOGICA
           :  EXPRESION '&&' EXPRESION   {
                                           $$ = {
-                                            instrucciones: $1.instrucciones,
+                                            instrucciones: new And(Tipo.PRIMITIVO, Tipo.BOOLEAN, $1.instrucciones,
+                                                $3.instrucciones, this._$.first_line, this._$.first_column),
                                             grafica: new NodoGrafico('EXPRESION', [
                                               $1.grafica,
                                               new NodoGrafico('&&', []),
@@ -147,7 +166,8 @@ EXPRESION
                                         }
           | EXPRESION '||' EXPRESION    {
                                           $$ = {
-                                            instrucciones: $1.instrucciones,
+                                            instrucciones: new Or(Tipo.PRIMITIVO, Tipo.BOOLEAN, $1.instrucciones,
+                                                $3.instrucciones, this._$.first_line, this._$.first_column),
                                             grafica: new NodoGrafico('EXPRESION', [
                                               $1.grafica,
                                               new NodoGrafico('||', []),
@@ -157,7 +177,8 @@ EXPRESION
                                         }
           | '!' EXPRESION               {
                                           $$ = {
-                                            instrucciones: $2.instrucciones,
+                                            instrucciones: new Not(Tipo.PRIMITIVO, Tipo.BOOLEAN, $2.instrucciones,
+                                                this._$.first_line, this._$.first_column),
                                             grafica: new NodoGrafico('EXPRESION', [
                                               new NodoGrafico('!', [$2.grafica])
                                             ])
@@ -166,7 +187,8 @@ EXPRESION
           // RELACIONAL
           | EXPRESION '<' EXPRESION     {
                                           $$ = {
-                                            instrucciones: $1.instrucciones,
+                                            instrucciones: new Menor(Tipo.PRIMITIVO, Tipo.BOOLEAN, $1.instrucciones,
+                                                $3.instrucciones, this._$.first_line, this._$.first_column),
                                             grafica: new NodoGrafico('EXPRESION', [
                                               $1.grafica,
                                               new NodoGrafico('<', []),
@@ -176,7 +198,8 @@ EXPRESION
                                         }
           | EXPRESION '>' EXPRESION     {
                                           $$ = {
-                                            instrucciones: $1.instrucciones,
+                                            instrucciones: new Mayor(Tipo.PRIMITIVO, Tipo.BOOLEAN, $1.instrucciones,
+                                                $3.instrucciones, this._$.first_line, this._$.first_column),
                                             grafica: new NodoGrafico('EXPRESION', [
                                               $1.grafica,
                                               new NodoGrafico('>', []),
@@ -186,7 +209,8 @@ EXPRESION
                                         }
           | EXPRESION '<=' EXPRESION    {
                                           $$ = {
-                                            instrucciones: $1.instrucciones,
+                                            instrucciones: new MenorQue(Tipo.PRIMITIVO, Tipo.BOOLEAN, $1.instrucciones,
+                                                $3.instrucciones, this._$.first_line, this._$.first_column),
                                             grafica: new NodoGrafico('EXPRESION', [
                                               $1.grafica,
                                               new NodoGrafico('<=', []),
@@ -196,7 +220,8 @@ EXPRESION
                                         }
           | EXPRESION '>=' EXPRESION    {
                                           $$ = {
-                                            instrucciones: $1.instrucciones,
+                                            instrucciones: new MayorQue(Tipo.PRIMITIVO, Tipo.BOOLEAN, $1.instrucciones,
+                                                $3.instrucciones, this._$.first_line, this._$.first_column),
                                             grafica: new NodoGrafico('EXPRESION', [
                                               $1.grafica,
                                               new NodoGrafico('>=', []),
@@ -206,7 +231,8 @@ EXPRESION
                                         }
           | EXPRESION '==' EXPRESION    {
                                           $$ = {
-                                            instrucciones: $1.instrucciones,
+                                            instrucciones: new Igualdad(Tipo.PRIMITIVO, Tipo.BOOLEAN, $1.instrucciones,
+                                                $3.instrucciones, this._$.first_line, this._$.first_column),
                                             grafica: new NodoGrafico('EXPRESION', [
                                               $1.grafica,
                                               new NodoGrafico('==', []),
@@ -216,7 +242,8 @@ EXPRESION
                                         }
           | EXPRESION '!=' EXPRESION    {
                                           $$ = {
-                                            instrucciones: $1.instrucciones,
+                                            instrucciones: new Diferencia(Tipo.PRIMITIVO, Tipo.BOOLEAN, $1.instrucciones,
+                                                $3.instrucciones, this._$.first_line, this._$.first_column),
                                             grafica: new NodoGrafico('EXPRESION', [
                                               $1.grafica,
                                               new NodoGrafico('!=', []),
@@ -227,7 +254,8 @@ EXPRESION
           // ARITMETICA
           | EXPRESION '+' EXPRESION       {
                                             $$ = {
-                                              instrucciones: $1.instrucciones,
+                                              instrucciones: new Suma(Tipo.PRIMITIVO, Tipo.STRING, $1.instrucciones,
+                                                $3.instrucciones, this._$.first_line, this._$.first_column),
                                               grafica: new NodoGrafico('EXPRESION', [
                                                 $1.grafica,
                                                 new NodoGrafico('+', []),
@@ -237,7 +265,8 @@ EXPRESION
                                           }
           | EXPRESION '-' EXPRESION       {
                                             $$ = {
-                                              instrucciones: $1.instrucciones,
+                                              instrucciones: new Resta(Tipo.PRIMITIVO, Tipo.STRING, $1.instrucciones,
+                                                $3.instrucciones, this._$.first_line, this._$.first_column),
                                               grafica: new NodoGrafico('EXPRESION', [
                                                 $1.grafica,
                                                 new NodoGrafico('-', []),
@@ -247,7 +276,8 @@ EXPRESION
                                           }
           | EXPRESION '*' EXPRESION       {
                                             $$ = {
-                                              instrucciones: $1.instrucciones,
+                                              instrucciones: new Multiplicacion(Tipo.PRIMITIVO, Tipo.STRING, $1.instrucciones,
+                                                $3.instrucciones, this._$.first_line, this._$.first_column),
                                               grafica: new NodoGrafico('EXPRESION', [
                                                 $1.grafica,
                                                 new NodoGrafico('*', []),
@@ -257,7 +287,8 @@ EXPRESION
                                           }
           | EXPRESION '/' EXPRESION       {
                                             $$ = {
-                                              instrucciones: $1.instrucciones,
+                                              instrucciones: new Division(Tipo.PRIMITIVO, Tipo.STRING, $1.instrucciones,
+                                                $3.instrucciones, this._$.first_line, this._$.first_column),
                                               grafica: new NodoGrafico('EXPRESION', [
                                                 $1.grafica,
                                                 new NodoGrafico('/', []),
@@ -277,7 +308,8 @@ EXPRESION
                                           }
           | '-' EXPRESION %prec UMINUS    {
                                             $$ = {
-                                              instrucciones: $2.instrucciones,
+                                              instrucciones: new Negativo(Tipo.PRIMITIVO, Tipo.STRING, $2.instrucciones,
+                                                this._$.first_line, this._$.first_column),
                                               grafica: new NodoGrafico('EXPRESION', [
                                                 new NodoGrafico('-', [$2.grafica])
                                               ])

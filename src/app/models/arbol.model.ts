@@ -15,7 +15,7 @@ export class Arbol {
     this.consola = new Array<string>();
   }
 
-  public getAST(): any {
+  public getAST(): Object {
     return JSON.parse(JSON.stringify(this.grafica));
   }
 }

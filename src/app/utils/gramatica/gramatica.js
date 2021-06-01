@@ -98,6 +98,7 @@ case 2:
 break;
 case 3:
 
+                                                                $$[$0-1].instrucciones.push($$[$0].instrucciones);
                                                                 this.$ = {
                                                                   instrucciones: $$[$0-1].instrucciones,
                                                                   grafica: new NodoGrafico('SENTENCIAS_GLOBALES',
@@ -109,7 +110,7 @@ break;
 case 4:
 
                                                                 this.$ = {
-                                                                  instrucciones: $$[$0].instrucciones,
+                                                                  instrucciones: [$$[$0].instrucciones],
                                                                   grafica: new NodoGrafico('SENTENCIAS_GLOBALES', [$$[$0].grafica])
                                                                 }
                                                               
@@ -128,7 +129,8 @@ break;
 case 6:
 
                                           this.$ = {
-                                            instrucciones: $$[$0-2].instrucciones,
+                                            instrucciones: new And(Tipo.PRIMITIVO, Tipo.BOOLEAN, $$[$0-2].instrucciones,
+                                                $$[$0].instrucciones, this._$.first_line, this._$.first_column),
                                             grafica: new NodoGrafico('EXPRESION', [
                                               $$[$0-2].grafica,
                                               new NodoGrafico('&&', []),
@@ -140,7 +142,8 @@ break;
 case 7:
 
                                           this.$ = {
-                                            instrucciones: $$[$0-2].instrucciones,
+                                            instrucciones: new Or(Tipo.PRIMITIVO, Tipo.BOOLEAN, $$[$0-2].instrucciones,
+                                                $$[$0].instrucciones, this._$.first_line, this._$.first_column),
                                             grafica: new NodoGrafico('EXPRESION', [
                                               $$[$0-2].grafica,
                                               new NodoGrafico('||', []),
@@ -152,7 +155,8 @@ break;
 case 8:
 
                                           this.$ = {
-                                            instrucciones: $$[$0].instrucciones,
+                                            instrucciones: new Not(Tipo.PRIMITIVO, Tipo.BOOLEAN, $$[$0].instrucciones,
+                                                this._$.first_line, this._$.first_column),
                                             grafica: new NodoGrafico('EXPRESION', [
                                               new NodoGrafico('!', [$$[$0].grafica])
                                             ])
@@ -162,7 +166,8 @@ break;
 case 9:
 
                                           this.$ = {
-                                            instrucciones: $$[$0-2].instrucciones,
+                                            instrucciones: new Menor(Tipo.PRIMITIVO, Tipo.BOOLEAN, $$[$0-2].instrucciones,
+                                                $$[$0].instrucciones, this._$.first_line, this._$.first_column),
                                             grafica: new NodoGrafico('EXPRESION', [
                                               $$[$0-2].grafica,
                                               new NodoGrafico('<', []),
@@ -174,7 +179,8 @@ break;
 case 10:
 
                                           this.$ = {
-                                            instrucciones: $$[$0-2].instrucciones,
+                                            instrucciones: new Mayor(Tipo.PRIMITIVO, Tipo.BOOLEAN, $$[$0-2].instrucciones,
+                                                $$[$0].instrucciones, this._$.first_line, this._$.first_column),
                                             grafica: new NodoGrafico('EXPRESION', [
                                               $$[$0-2].grafica,
                                               new NodoGrafico('>', []),
@@ -186,7 +192,8 @@ break;
 case 11:
 
                                           this.$ = {
-                                            instrucciones: $$[$0-2].instrucciones,
+                                            instrucciones: new MenorQue(Tipo.PRIMITIVO, Tipo.BOOLEAN, $$[$0-2].instrucciones,
+                                                $$[$0].instrucciones, this._$.first_line, this._$.first_column),
                                             grafica: new NodoGrafico('EXPRESION', [
                                               $$[$0-2].grafica,
                                               new NodoGrafico('<=', []),
@@ -198,7 +205,8 @@ break;
 case 12:
 
                                           this.$ = {
-                                            instrucciones: $$[$0-2].instrucciones,
+                                            instrucciones: new MayorQue(Tipo.PRIMITIVO, Tipo.BOOLEAN, $$[$0-2].instrucciones,
+                                                $$[$0].instrucciones, this._$.first_line, this._$.first_column),
                                             grafica: new NodoGrafico('EXPRESION', [
                                               $$[$0-2].grafica,
                                               new NodoGrafico('>=', []),
@@ -210,7 +218,8 @@ break;
 case 13:
 
                                           this.$ = {
-                                            instrucciones: $$[$0-2].instrucciones,
+                                            instrucciones: new Igualdad(Tipo.PRIMITIVO, Tipo.BOOLEAN, $$[$0-2].instrucciones,
+                                                $$[$0].instrucciones, this._$.first_line, this._$.first_column),
                                             grafica: new NodoGrafico('EXPRESION', [
                                               $$[$0-2].grafica,
                                               new NodoGrafico('==', []),
@@ -222,7 +231,8 @@ break;
 case 14:
 
                                           this.$ = {
-                                            instrucciones: $$[$0-2].instrucciones,
+                                            instrucciones: new Diferencia(Tipo.PRIMITIVO, Tipo.BOOLEAN, $$[$0-2].instrucciones,
+                                                $$[$0].instrucciones, this._$.first_line, this._$.first_column),
                                             grafica: new NodoGrafico('EXPRESION', [
                                               $$[$0-2].grafica,
                                               new NodoGrafico('!=', []),
@@ -234,7 +244,8 @@ break;
 case 15:
 
                                             this.$ = {
-                                              instrucciones: $$[$0-2].instrucciones,
+                                              instrucciones: new Suma(Tipo.PRIMITIVO, Tipo.STRING, $$[$0-2].instrucciones,
+                                                $$[$0].instrucciones, this._$.first_line, this._$.first_column),
                                               grafica: new NodoGrafico('EXPRESION', [
                                                 $$[$0-2].grafica,
                                                 new NodoGrafico('+', []),
@@ -246,7 +257,8 @@ break;
 case 16:
 
                                             this.$ = {
-                                              instrucciones: $$[$0-2].instrucciones,
+                                              instrucciones: new Resta(Tipo.PRIMITIVO, Tipo.STRING, $$[$0-2].instrucciones,
+                                                $$[$0].instrucciones, this._$.first_line, this._$.first_column),
                                               grafica: new NodoGrafico('EXPRESION', [
                                                 $$[$0-2].grafica,
                                                 new NodoGrafico('-', []),
@@ -258,7 +270,8 @@ break;
 case 17:
 
                                             this.$ = {
-                                              instrucciones: $$[$0-2].instrucciones,
+                                              instrucciones: new Multiplicacion(Tipo.PRIMITIVO, Tipo.STRING, $$[$0-2].instrucciones,
+                                                $$[$0].instrucciones, this._$.first_line, this._$.first_column),
                                               grafica: new NodoGrafico('EXPRESION', [
                                                 $$[$0-2].grafica,
                                                 new NodoGrafico('*', []),
@@ -270,7 +283,8 @@ break;
 case 18:
 
                                             this.$ = {
-                                              instrucciones: $$[$0-2].instrucciones,
+                                              instrucciones: new Division(Tipo.PRIMITIVO, Tipo.STRING, $$[$0-2].instrucciones,
+                                                $$[$0].instrucciones, this._$.first_line, this._$.first_column),
                                               grafica: new NodoGrafico('EXPRESION', [
                                                 $$[$0-2].grafica,
                                                 new NodoGrafico('/', []),
@@ -294,7 +308,8 @@ break;
 case 20:
 
                                             this.$ = {
-                                              instrucciones: $$[$0].instrucciones,
+                                              instrucciones: new Negativo(Tipo.PRIMITIVO, Tipo.STRING, $$[$0].instrucciones,
+                                                this._$.first_line, this._$.first_column),
                                               grafica: new NodoGrafico('EXPRESION', [
                                                 new NodoGrafico('-', [$$[$0].grafica])
                                               ])
@@ -525,6 +540,23 @@ parse: function parse(input) {
   const { Tipo } = require('src/app/models/tipo.model');
 
   const { Primitivo } = require('src/app/controllers/expresiones/primitivo.controller');
+  // ARITMETICAS
+  const { Suma } = require('src/app/controllers/expresiones/aritmeticas/suma.controller');
+  const { Resta } = require('src/app/controllers/expresiones/aritmeticas/resta.controller');
+  const { Multiplicacion } = require('src/app/controllers/expresiones/aritmeticas/multiplicacion.controller');
+  const { Division } = require('src/app/controllers/expresiones/aritmeticas/division.controller');
+  const { Negativo } = require('src/app/controllers/expresiones/aritmeticas/negativo.controller');
+  // RELACIONALES
+  const { Mayor } = require('src/app/controllers/expresiones/relacionales/mayor.controller');
+  const { Menor } = require('src/app/controllers/expresiones/relacionales/menor.controller');
+  const { MayorQue } = require('src/app/controllers/expresiones/relacionales/mayorQue.controller');
+  const { MenorQue } = require('src/app/controllers/expresiones/relacionales/menorQue.controller');
+  const { Igualdad } = require('src/app/controllers/expresiones/relacionales/igualdad.controller');
+  const { Diferencia } = require('src/app/controllers/expresiones/relacionales/diferencia.controller');
+  // LOGICAS
+  const { And } = require('src/app/controllers/expresiones/logicas/and.controller');
+  const { Or } = require('src/app/controllers/expresiones/logicas/or.controller');
+  const { Not } = require('src/app/controllers/expresiones/logicas/not.controller');
 
   const { NodoGrafico } = require('src/app/utils/reports/nodoGrafico');
 
@@ -917,41 +949,37 @@ case 28:return 11
 break;
 case 29:return '='
 break;
-case 30:return '++'
+case 30:return 18
 break;
-case 31:return 18
+case 31:return 19
 break;
-case 32:return '--'
+case 32:return '**'
 break;
-case 33:return 19
+case 33:return 20
 break;
-case 34:return '**'
+case 34:return 21
 break;
-case 35:return 20
+case 35:return '%'
 break;
-case 36:return 21
+case 36:return 'identificador'
 break;
-case 37:return '%'
+case 37:return 26
 break;
-case 38:return 'identificador'
+case 38:return 25
 break;
-case 39:return 26
+case 39: yy_.yytext = yy_.yytext.substr(1,yy_.yyleng-2); return 27; 
 break;
-case 40:return 25
+case 40:return 5;
 break;
-case 41: yy_.yytext = yy_.yytext.substr(1,yy_.yyleng-2); return 27; 
-break;
-case 42:return 5;
-break;
-case 43:
+case 41:
                           excepciones.push(new Excepcion('Léxico', yy_.yylloc.first_line, yy_.yylloc.first_column, `Patrón desconocido ${yy_.yytext}`));
                           console.error(`Error Léxico: ${yy_.yytext} en la linea ${yy_.yylloc.first_line} y columna ${yy_.yylloc.first_column}`);
                         
 break;
 }
 },
-rules: [/^(?:\s+)/,/^(?:((\/\*[\s\S]*?\*\/|\/\/.*)))/,/^(?:\{)/,/^(?:\})/,/^(?:\()/,/^(?:\))/,/^(?:\[)/,/^(?:\])/,/^(?:,)/,/^(?:\.)/,/^(?::)/,/^(?:;)/,/^(?:integer\b)/,/^(?:string\b)/,/^(?:boolean\b)/,/^(?:double\b)/,/^(?:void\b)/,/^(?:false\b)/,/^(?:true\b)/,/^(?:null\b)/,/^(?:<=)/,/^(?:<)/,/^(?:==)/,/^(?:>=)/,/^(?:>)/,/^(?:!=)/,/^(?:\|\|)/,/^(?:&&)/,/^(?:!)/,/^(?:=)/,/^(?:\+\+)/,/^(?:\+)/,/^(?:--)/,/^(?:-)/,/^(?:\*\*)/,/^(?:\*)/,/^(?:\/)/,/^(?:%)/,/^(?:((([a-zA-Z_])[a-zA-Z0-9_]*)))/,/^(?:(((([0-9]+))\.(([0-9]+))+)))/,/^(?:(([0-9]+)))/,/^(?:(((((("))|(('))))((?:\\(((("))|(('))))|(?:(?!(((("))|(('))))).))*)(((("))|((')))))))/,/^(?:$)/,/^(?:.)/],
-conditions: {"INITIAL":{"rules":[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43],"inclusive":true}}
+rules: [/^(?:\s+)/,/^(?:((\/\*[\s\S]*?\*\/|\/\/.*)))/,/^(?:\{)/,/^(?:\})/,/^(?:\()/,/^(?:\))/,/^(?:\[)/,/^(?:\])/,/^(?:,)/,/^(?:\.)/,/^(?::)/,/^(?:;)/,/^(?:integer\b)/,/^(?:string\b)/,/^(?:boolean\b)/,/^(?:double\b)/,/^(?:void\b)/,/^(?:false\b)/,/^(?:true\b)/,/^(?:null\b)/,/^(?:<=)/,/^(?:<)/,/^(?:==)/,/^(?:>=)/,/^(?:>)/,/^(?:!=)/,/^(?:\|\|)/,/^(?:&&)/,/^(?:!)/,/^(?:=)/,/^(?:\+)/,/^(?:-)/,/^(?:\*\*)/,/^(?:\*)/,/^(?:\/)/,/^(?:%)/,/^(?:((([a-zA-Z_])[a-zA-Z0-9_]*)))/,/^(?:(((([0-9]+))\.(([0-9]+))+)))/,/^(?:(([0-9]+)))/,/^(?:(((((("))|(('))))((?:\\(((("))|(('))))|(?:(?!(((("))|(('))))).))*)(((("))|((')))))))/,/^(?:$)/,/^(?:.)/],
+conditions: {"INITIAL":{"rules":[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41],"inclusive":true}}
 });
 return lexer;
 })();
