@@ -9,6 +9,8 @@ export class Primitivo extends Nodo {
   constructor(tipoOBJ: Tipo, tipo: Tipo, valor: Object,
     linea: number, columna: number) {
     super(tipoOBJ, tipo, linea, columna);
+
+    this.tipoOBJ = Tipo.PRIMITIVO;
     this.valor = valor;
   }
 

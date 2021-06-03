@@ -1,0 +1,41 @@
+<mat-tab-group class="bg-dark" dynamicHeight="true" mat-stretch-tabs style="height: calc(100vh - 80px);">
+
+  <mat-tab label="XML">
+    <ng-template matTabContent>
+      <app-xml-editor></app-xml-editor>
+    </ng-template>
+  </mat-tab>
+
+  <mat-tab label="NEW 0">
+    <ng-template matTabContent>
+      <app-editor></app-editor>
+    </ng-template>
+  </mat-tab>
+
+</mat-tab-group>
+
+<nav class="navbar navbar-dark py-0 bg-dark navbar-expand-sm">
+  <ul class="navbar-nav mr-auto">
+    <li class="nav-item upload-btn-wrapper">
+      <button mat-icon-button color="primary" matTooltip="Nueva pestaña" matTooltipPosition="above">
+        <mat-icon>add</mat-icon>
+      </button>
+    </li>
+    <li class="nav-item upload-btn-wrapper">
+      <button mat-icon-button color="primary" matTooltip="Subir archivo" matTooltipPosition="above">
+        <mat-icon>cloud_upload</mat-icon>
+      </button>
+      <input type="file">
+    </li>
+    <li class="nav-item">
+      <button mat-icon-button color="primary" matTooltip="Descargar archivo" matTooltipPosition="above">
+        <mat-icon>cloud_download</mat-icon>
+      </button>
+    </li>
+    <li class="nav-item">
+      <button mat-icon-button color="primary" matTooltip="Ejecutar" matTooltipPosition="above">
+        <mat-icon>play_arrow</mat-icon>
+      </button>
+    </li>
+  </ul>
+</nav>

@@ -929,57 +929,61 @@ case 18:return 29
 break;
 case 19:return 'null'
 break;
-case 20:return 14
+case 20:return 'console'
 break;
-case 21:return 12
+case 21:return 'log'
 break;
-case 22:return 16
+case 22:return 14
 break;
-case 23:return 15
+case 23:return 12
 break;
-case 24:return 13
+case 24:return 16
 break;
-case 25:return 17
+case 25:return 15
 break;
-case 26:return 10
+case 26:return 13
 break;
-case 27:return 9
+case 27:return 17
 break;
-case 28:return 11
+case 28:return 10
 break;
-case 29:return '='
+case 29:return 9
 break;
-case 30:return 18
+case 30:return 11
 break;
-case 31:return 19
+case 31:return '='
 break;
-case 32:return '**'
+case 32:return 18
 break;
-case 33:return 20
+case 33:return 19
 break;
-case 34:return 21
+case 34:return '**'
 break;
-case 35:return '%'
+case 35:return 20
 break;
-case 36:return 'identificador'
+case 36:return 21
 break;
-case 37:return 26
+case 37:return '%'
 break;
-case 38:return 25
+case 38:return 'identificador'
 break;
-case 39: yy_.yytext = yy_.yytext.substr(1,yy_.yyleng-2); return 27; 
+case 39:return 26
 break;
-case 40:return 5;
+case 40:return 25
 break;
-case 41:
+case 41: yy_.yytext = yy_.yytext.substr(1,yy_.yyleng-2); return 27; 
+break;
+case 42:return 5;
+break;
+case 43:
                           excepciones.push(new Excepcion('Léxico', yy_.yylloc.first_line, yy_.yylloc.first_column, `Patrón desconocido ${yy_.yytext}`));
                           console.error(`Error Léxico: ${yy_.yytext} en la linea ${yy_.yylloc.first_line} y columna ${yy_.yylloc.first_column}`);
                         
 break;
 }
 },
-rules: [/^(?:\s+)/,/^(?:((\/\*[\s\S]*?\*\/|\/\/.*)))/,/^(?:\{)/,/^(?:\})/,/^(?:\()/,/^(?:\))/,/^(?:\[)/,/^(?:\])/,/^(?:,)/,/^(?:\.)/,/^(?::)/,/^(?:;)/,/^(?:integer\b)/,/^(?:string\b)/,/^(?:boolean\b)/,/^(?:double\b)/,/^(?:void\b)/,/^(?:false\b)/,/^(?:true\b)/,/^(?:null\b)/,/^(?:<=)/,/^(?:<)/,/^(?:==)/,/^(?:>=)/,/^(?:>)/,/^(?:!=)/,/^(?:\|\|)/,/^(?:&&)/,/^(?:!)/,/^(?:=)/,/^(?:\+)/,/^(?:-)/,/^(?:\*\*)/,/^(?:\*)/,/^(?:\/)/,/^(?:%)/,/^(?:((([a-zA-Z_])[a-zA-Z0-9_]*)))/,/^(?:(((([0-9]+))\.(([0-9]+))+)))/,/^(?:(([0-9]+)))/,/^(?:(((((("))|(('))))((?:\\(((("))|(('))))|(?:(?!(((("))|(('))))).))*)(((("))|((')))))))/,/^(?:$)/,/^(?:.)/],
-conditions: {"INITIAL":{"rules":[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41],"inclusive":true}}
+rules: [/^(?:\s+)/,/^(?:((\/\*[\s\S]*?\*\/|\/\/.*)))/,/^(?:\{)/,/^(?:\})/,/^(?:\()/,/^(?:\))/,/^(?:\[)/,/^(?:\])/,/^(?:,)/,/^(?:\.)/,/^(?::)/,/^(?:;)/,/^(?:integer\b)/,/^(?:string\b)/,/^(?:boolean\b)/,/^(?:double\b)/,/^(?:void\b)/,/^(?:false\b)/,/^(?:true\b)/,/^(?:null\b)/,/^(?:console\b)/,/^(?:log\b)/,/^(?:<=)/,/^(?:<)/,/^(?:==)/,/^(?:>=)/,/^(?:>)/,/^(?:!=)/,/^(?:\|\|)/,/^(?:&&)/,/^(?:!)/,/^(?:=)/,/^(?:\+)/,/^(?:-)/,/^(?:\*\*)/,/^(?:\*)/,/^(?:\/)/,/^(?:%)/,/^(?:((([a-zA-Z_])[a-zA-Z0-9_]*)))/,/^(?:(((([0-9]+))\.(([0-9]+))+)))/,/^(?:(([0-9]+)))/,/^(?:(((((("))|(('))))((?:\\(((("))|(('))))|(?:(?!(((("))|(('))))).))*)(((("))|((')))))))/,/^(?:$)/,/^(?:.)/],
+conditions: {"INITIAL":{"rules":[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43],"inclusive":true}}
 });
 return lexer;
 })();

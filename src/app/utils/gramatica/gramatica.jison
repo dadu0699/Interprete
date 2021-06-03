@@ -64,6 +64,8 @@ cadena            ({comillas}((?:\\{comillas}|(?:(?!{comillas}).))*){comillas})
 "true"                  return 'true'
 "null"                  return 'null'
 
+"console"               return 'console'
+"log"                   return 'log'
 
 "<="                    return '<='
 "<"                     return '<'

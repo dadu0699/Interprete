@@ -1,6 +1,7 @@
 <div class="row">
+
   <div class="col-xl-7 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing ">
-    <app-editor></app-editor>
+    <app-tabs></app-tabs>
   </div>
 
   <div class="col-xl-5 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing ">
@@ -8,14 +9,10 @@
   </div>
 
   <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing ">
-
     <mat-tab-group class="bg-dark" dynamicHeight="true" mat-stretch-tabs
-      style="height: 95vh; max-width: calc(100vw - 40px);">
+      style="height: calc(100vh - 40px); max-width: calc(100vw - 40px);">
       <mat-tab label="AST">
         <app-ast></app-ast>
-        <!-- <ng-template matTabContent>
-          <app-ast></app-ast>
-        </ng-template> -->
       </mat-tab>
 
       <mat-tab label="ERRORES">
@@ -26,6 +23,6 @@
         <app-simbolos></app-simbolos>
       </mat-tab>
     </mat-tab-group>
-
   </div>
+
 </div>

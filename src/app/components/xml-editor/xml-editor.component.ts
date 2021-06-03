@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-editor',
-  templateUrl: './editor.component.html',
+  selector: 'app-xml-editor',
+  templateUrl: './xml-editor.component.html',
   styles: [
   ]
 })
-export class EditorComponent implements OnInit {
+export class XmlEditorComponent implements OnInit {
   public options: any;
   public content: string;
 
@@ -26,7 +26,5 @@ export class EditorComponent implements OnInit {
     this.content = '';
   }
 
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void { }
 }

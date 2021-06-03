@@ -61,6 +61,13 @@ body {
   background-color: #E91E63FF;
 }
 
+/* MAT BUTTON */
+.mat-button.mat-primary,
+.mat-icon-button.mat-primary,
+.mat-stroked-button.mat-primary {
+  color: #E91E63FF;
+}
+
 /* TABLE */
 table {
   width: 100%;
