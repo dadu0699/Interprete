@@ -8,11 +8,11 @@ import { Simbolo } from '../models/simbolo.model';
   providedIn: 'root'
 })
 export class DataService {
-  private codigo: BehaviorSubject<string>;
-  public currentCodigo: Observable<string>;
-
   private consola: BehaviorSubject<string>;
   public currentConsola: Observable<string>;
+
+  private ast: BehaviorSubject<Object>;
+  public currentAST: Observable<Object>;
 
   private simbolos: BehaviorSubject<Array<Array<Simbolo>>>;
   public currentSimbolos: Observable<Array<Array<Simbolo>>>;
@@ -21,11 +21,11 @@ export class DataService {
   public currentExcepciones: Observable<Array<Excepcion>>;
 
   constructor() {
-    this.codigo = new BehaviorSubject<string>('');
-    this.currentCodigo = this.codigo.asObservable();
-
     this.consola = new BehaviorSubject<string>('');
     this.currentConsola = this.consola.asObservable();
+
+    this.ast = new BehaviorSubject<Object>({ name: 'RAIZ' });
+    this.currentAST = this.ast.asObservable();
 
     this.simbolos = new BehaviorSubject<Array<Array<Simbolo>>>([]);
     this.currentSimbolos = this.simbolos.asObservable();
@@ -34,12 +34,12 @@ export class DataService {
     this.currentExcepciones = this.excepciones.asObservable();
   }
 
-  public changeCodigo(codigo: string): void {
-    this.codigo.next(codigo);
-  }
-
   public changeConsola(consola: string): void {
     this.consola.next(consola);
+  }
+
+  public changeAST(ast: Object): void {
+    this.ast.next(ast);
   }
 
   public changeSimbolos(simbolos: Array<Array<Simbolo>>): void {

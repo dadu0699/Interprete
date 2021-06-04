@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+import { DataService } from 'src/app/services/data.service'
+
 @Component({
   selector: 'app-consola',
   templateUrl: './consola.component.html',
@@ -10,7 +12,7 @@ export class ConsolaComponent implements OnInit {
   public options: any;
   public content: string;
 
-  constructor() {
+  constructor(private _data: DataService) {
     this.options = {
       theme: 'material-ocean',
       lineNumbers: false,
@@ -26,5 +28,7 @@ export class ConsolaComponent implements OnInit {
     this.content = 'Hello World!';
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    this._data.currentConsola.subscribe(consola => this.content = consola);
+  }
 }

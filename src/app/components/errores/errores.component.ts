@@ -4,13 +4,14 @@ import { MatSort } from '@angular/material/sort';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 
+import { DataService } from 'src/app/services/data.service'
+
 import { Excepcion } from 'src/app/models/excepcion.model';
 
 @Component({
   selector: 'app-errores',
   templateUrl: './errores.component.html',
-  styles: [
-  ]
+  styles: []
 })
 export class ErroresComponent implements OnInit, AfterViewInit {
   public pageSize!: number;
@@ -23,7 +24,7 @@ export class ErroresComponent implements OnInit, AfterViewInit {
 
   private screenHeight!: number;
 
-  constructor() {
+  constructor(private _data: DataService) {
     this.onResize();
     this.dataSource = new MatTableDataSource<any>();
     this.displayedColumns = ['tipo', 'descripcion', 'linea', 'columna'];
@@ -31,6 +32,7 @@ export class ErroresComponent implements OnInit, AfterViewInit {
   }
 
   async ngOnInit(): Promise<void> {
+    this._data.currentExcepciones.subscribe(excepcion => this.data = excepcion);
     this.dataSource.data = this.data;
   }
 

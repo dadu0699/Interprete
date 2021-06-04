@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Arbol } from 'src/app/models/arbol.model';
-import { Tabla } from 'src/app/models/tabla.model';
 
-import { parser } from 'src/app/utils/gramatica/gramatica.js';
+import { DataService } from 'src/app/services/data.service'
 
 @Component({
   selector: 'app-ast',
@@ -14,7 +12,7 @@ export class AstComponent implements OnInit {
   public options: any;
   public autoResize: boolean;
 
-  constructor() {
+  constructor(private _dataService: DataService) {
     this.autoResize = true;
 
     this.options = {
@@ -84,20 +82,7 @@ export class AstComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // const arbol: Arbol = <Arbol>parser.parse(`
-    // 7 - (5 + 10 * (2 + 4 * (5 + 2 * 3)) - 8 * 3 * 3) + 50 * (6 * 2);
-    // (2 * 2 * 2 * 2) - 9 - (8 - 6 + (3 * 3 - 6 * 5 - 7 - (9 + 7 * 7 * 7) + 10) - 5) + 8 - (6 - 5 * (2 * 3));
-    // 214 + ((2 + 412 * 3) + 1 - ((2 * 2 * 2) - 2) * 2) - 2;
-    // ((100 == (50 + 50 + (214 - 214))) && ! !!!!!!! !false);
-    // (false || (100 > 50)) && ((100 != 100) && !!!!! true);
-    // `);
-    // const tabla: Tabla = new Tabla('Global', undefined);
-
-    // arbol.instrucciones.forEach(instruccion => {
-    //   console.log(instruccion.ejecutar(tabla, arbol));
-    // });
-
-    // this.setData(arbol.getAST());
+    this._dataService.currentAST.subscribe(ast => this.setData(ast));
   }
 
   public setData(data: object): void {
