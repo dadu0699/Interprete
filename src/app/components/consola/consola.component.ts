@@ -18,7 +18,11 @@ export class ConsolaComponent implements OnInit {
       lineNumbers: false,
       lineWrapping: false,
       foldGutter: true,
-      gutters: ['CodeMirror-linenumbers', 'CodeMirror-foldgutter', 'CodeMirror-lint-markers'],
+      gutters: [
+        'CodeMirror-linenumbers',
+        'CodeMirror-foldgutter',
+        'CodeMirror-lint-markers'
+      ],
       autoCloseBrackets: true,
       matchBrackets: true,
       lint: true,

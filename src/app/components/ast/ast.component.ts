@@ -23,6 +23,19 @@ export class AstComponent implements OnInit {
         triggerOn: 'mousemove',
       },
 
+      toolbox: {
+        show: true,
+        orient: 'horizontal',
+        showTitle: false,
+        feature: {
+          saveAsImage: {
+            show: true,
+            type: 'png',
+            backgroundColor: null
+          },
+        },
+      },
+
       series: [
         {
           type: 'tree',
@@ -41,7 +54,7 @@ export class AstComponent implements OnInit {
           symbolSize: 10,
 
           roam: true,
-          initialTreeDepth: 5,
+          initialTreeDepth: undefined,
 
           // edgeShape: 'polyline',
           // edgeForkPosition: '63%',
@@ -87,6 +100,5 @@ export class AstComponent implements OnInit {
 
   public setData(data: object): void {
     this.options.series[0].data = [data];
-    // this.options.series[0].initialTreeDepth = 25;
   }
 }

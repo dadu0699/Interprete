@@ -1,14 +1,6 @@
 <mat-tab-group mat-stretch-tabs class="bg-dark" dynamicHeight="true" style="height: calc(100vh - 80px);"
   (selectedTabChange)="tabChanged($event)">
 
-  <mat-tab label="XML">
-    <ng-template matTabContent>
-      <div style="height: calc(100vh - 116.5px);">
-        <ngx-codemirror [(ngModel)]="contentXML" [options]="options"></ngx-codemirror>
-      </div>
-    </ng-template>
-  </mat-tab>
-
   <ng-template ngFor let-tab [ngForOf]="tabs">
     <mat-tab label="NEW {{tab['id']}}">
       <ng-template matTabContent>
@@ -46,12 +38,7 @@
       </button>
     </li>
     <li class="nav-item">
-      <button mat-icon-button color="primary" matTooltip="Ejecutar XML" matTooltipPosition="above">
-        <mat-icon>bug_report</mat-icon>
-      </button>
-    </li>
-    <li class="nav-item">
-      <button mat-icon-button color="primary" matTooltip="Ejecutar" matTooltipPosition="above">
+      <button mat-icon-button color="primary" matTooltip="Ejecutar" matTooltipPosition="above" (click)="ejecutar()">
         <mat-icon>play_arrow</mat-icon>
       </button>
     </li>
