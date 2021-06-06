@@ -1,6 +1,6 @@
 # Intérprete
 
-Este proyecto se generó con [Angular CLI] (https://github.com/angular/angular-cli) versión 12.0.2.
+Este proyecto se generó con [Angular CLI](https://github.com/angular/angular-cli) versión 12.0.2.
 
 ## **Contenido**   
 - [Ejecucion](#ejecucion)
