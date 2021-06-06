@@ -114,16 +114,11 @@ import { parser } from 'src/app/utils/gramatica/gramatica.js';
 ### Angular-cli-ghpages<a name="ghpages"></a>
 Módulo el cual permite desplegar el proyecto en github pages, para esto se necesitó instalar de manera global en el equipo
 ```
-npm install -g angular-cli-ghpages
+ng add angular-cli-ghpages
 ```
 
 ## Despliegue<a name="despliegue"></a>
-Para realizar el despliegue en github pages es necesario que primero se compile el proyecto, para esto ejecutamos el siguiente comando
+Para realizar el despliegue en github pages es solo se debe ejecutar el siguiente comando
 ```
-ng build --prod --base-href "https://USERNAME.github.io/REPOSITORY_NAME/"
-```
-
-Luego de haber compilado el proyecto se puede realizar el despliegue a través del siguiente comando
-```
-angular-cli-ghpages --dir=dist/PROJECT_NAME
+ng deploy --base-href "https://USERNAME.github.io/REPOSITORY_NAME/"
 ```
