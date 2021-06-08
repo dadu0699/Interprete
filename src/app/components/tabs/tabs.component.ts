@@ -51,6 +51,12 @@ export class TabsComponent implements OnInit {
       autoCloseBrackets: true,
       matchBrackets: true,
       lint: true,
+      onLoad: (_editor: any) => {
+        this.options['editor'] = _editor;
+        setTimeout(() => {
+          this.options['editor'].refresh();
+        }, 100);
+      }
     };
   }
 

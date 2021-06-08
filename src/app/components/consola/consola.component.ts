@@ -13,7 +13,12 @@ export class ConsolaComponent implements OnInit {
   public content: string;
 
   constructor(private _data: DataService) {
-    this.options = {
+    this.options = this.optionsEditor();
+    this.content = '';
+  }
+
+  private optionsEditor(): Object {
+    return {
       theme: 'material-ocean',
       lineNumbers: false,
       lineWrapping: false,
@@ -26,13 +31,18 @@ export class ConsolaComponent implements OnInit {
       autoCloseBrackets: true,
       matchBrackets: true,
       lint: true,
-      readOnly: true
+      readOnly: true,
+      onLoad: (_editor: any) => {
+        this.options['editor'] = _editor;
+        setTimeout(() => {
+          this.options['editor'].refresh();
+        }, 100);
+      }
     };
-
-    this.content = 'Hello World!';
   }
 
   ngOnInit(): void {
     this._data.currentConsola.subscribe(consola => this.content = consola);
+    this.content = 'Hello World!';
   }
 }
