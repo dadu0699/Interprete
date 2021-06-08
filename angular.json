@@ -36,7 +36,13 @@
               "node_modules/echarts/dist/echarts.min.js"
             ],
             "allowedCommonJsDependencies": [
-              "@ctrl/ngx-codemirror"
+              "@ctrl/ngx-codemirror",
+              "codemirror/addon/edit/matchbrackets",
+              "codemirror/addon/fold/brace-fold",
+              "codemirror/addon/fold/foldgutter",
+              "codemirror/addon/lint/lint",
+              "codemirror/addon/edit/closebrackets",
+              "codemirror/mode/javascript/javascript"
             ]
           },
           "configurations": {

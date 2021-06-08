@@ -20,7 +20,7 @@ export class TabsComponent implements OnInit {
   public contadorTab: number;
   public indexTab: number;
 
-  public options: Object;
+  public options: any;
 
   private file!: File;
 
@@ -36,7 +36,7 @@ export class TabsComponent implements OnInit {
 
   ngOnInit(): void { }
 
-  private optionsEditor(): Object {
+  private optionsEditor(): any {
     return {
       theme: 'dracula',
       mode: 'application/typescript',
@@ -50,13 +50,7 @@ export class TabsComponent implements OnInit {
       ],
       autoCloseBrackets: true,
       matchBrackets: true,
-      lint: true,
-      onLoad: (_editor: any) => {
-        this.options['editor'] = _editor;
-        setTimeout(() => {
-          this.options['editor'].refresh();
-        }, 100);
-      }
+      lint: true
     };
   }
 
