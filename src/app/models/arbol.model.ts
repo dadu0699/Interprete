@@ -6,16 +6,25 @@ export class Arbol {
   public instrucciones: Array<Nodo>;
   public excepciones: Array<Excepcion>;
   public consola: Array<string>;
-  public grafica: NodoGrafico;
 
-  constructor(instrucciones: Array<Nodo>, grafica: NodoGrafico) {
+  public graficaAST: NodoGrafico;
+  public graficaCST: NodoGrafico;
+  public gramatica: any;
+
+  constructor(instrucciones: Array<Nodo>) {
     this.instrucciones = instrucciones;
-    this.grafica = grafica;
     this.excepciones = new Array<Excepcion>();
     this.consola = new Array<string>();
+
+    this.graficaAST = new NodoGrafico('RAIZ', []);
+    this.graficaCST = new NodoGrafico('RAIZ', []);
   }
 
   public getAST(): Object {
-    return JSON.parse(JSON.stringify(this.grafica));
+    return JSON.parse(JSON.stringify(this.graficaAST));
+  }
+
+  public getCST(): Object {
+    return JSON.parse(JSON.stringify(this.graficaCST));
   }
 }

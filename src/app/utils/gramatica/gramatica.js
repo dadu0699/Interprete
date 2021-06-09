@@ -85,7 +85,9 @@ var $0 = $$.length - 1;
 switch (yystate) {
 case 1:
 
-                                      const arbol = new Arbol($$[$0-1].instrucciones, new NodoGrafico('RAIZ', [$$[$0-1].grafica]));
+                                      const arbol = new Arbol($$[$0-1].instrucciones);
+                                      arbol.graficaAST = new NodoGrafico('RAIZ', [$$[$0-1].grafica]);
+
                                       if (excepciones.length > 0) {
                                         arbol.excepciones.concat(excepciones);
                                         excepciones = [];
@@ -94,7 +96,7 @@ case 1:
                                     
 break;
 case 2:
- return new Arbol([], new NodoGrafico('', [])); 
+ return new Arbol([]); 
 break;
 case 3:
 

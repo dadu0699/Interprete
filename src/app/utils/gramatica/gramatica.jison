@@ -115,14 +115,16 @@ cadena            ({comillas}((?:\\{comillas}|(?:(?!{comillas}).))*){comillas})
 %% /* Gramática */
 
 START : SENTENCIAS_GLOBALES EOF      {
-                                      const arbol = new Arbol($1.instrucciones, new NodoGrafico('RAIZ', [$1.grafica]));
+                                      const arbol = new Arbol($1.instrucciones);
+                                      arbol.graficaAST = new NodoGrafico('RAIZ', [$1.grafica]);
+
                                       if (excepciones.length > 0) {
                                         arbol.excepciones.concat(excepciones);
                                         excepciones = [];
                                       }
                                       return arbol;
                                     }
-      | EOF                         { return new Arbol([], new NodoGrafico('', [])); }
+      | EOF                         { return new Arbol([]); }
       ;
 
 SENTENCIAS_GLOBALES : SENTENCIAS_GLOBALES SENTENCIA_GLOBAL    {
