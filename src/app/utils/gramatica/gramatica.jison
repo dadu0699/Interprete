@@ -10,6 +10,7 @@
   const { Multiplicacion } = require('src/app/controllers/expresiones/aritmeticas/multiplicacion.controller');
   const { Division } = require('src/app/controllers/expresiones/aritmeticas/division.controller');
   const { Negativo } = require('src/app/controllers/expresiones/aritmeticas/negativo.controller');
+  const { Positivo } = require('src/app/controllers/expresiones/aritmeticas/positivo.controller');
   // RELACIONALES
   const { Mayor } = require('src/app/controllers/expresiones/relacionales/mayor.controller');
   const { Menor } = require('src/app/controllers/expresiones/relacionales/menor.controller');
@@ -108,7 +109,7 @@ cadena            ({comillas}((?:\\{comillas}|(?:(?!{comillas}).))*){comillas})
 %left '*' '/' '%'
 %left '**'
 %right '!'
-%left UMINUS
+%left UMINUS UPLUS
 %right '++' '--'
 
 %start START
@@ -313,6 +314,15 @@ EXPRESION
           | '-' EXPRESION %prec UMINUS    {
                                             $$ = {
                                               instrucciones: new Negativo(Tipo.PRIMITIVO, Tipo.STRING, $2.instrucciones,
+                                                this._$.first_line, this._$.first_column),
+                                              grafica: new NodoGrafico('EXPRESION', [
+                                                new NodoGrafico('-', [$2.grafica])
+                                              ])
+                                            }
+                                          }
+          | '+' EXPRESION %prec UPLUS    {
+                                            $$ = {
+                                              instrucciones: new Positivo(Tipo.PRIMITIVO, Tipo.STRING, $2.instrucciones,
                                                 this._$.first_line, this._$.first_column),
                                               grafica: new NodoGrafico('EXPRESION', [
                                                 new NodoGrafico('-', [$2.grafica])
