@@ -26,6 +26,7 @@
   const { NodoGrafico } = require('src/app/utils/reports/nodoGrafico');
 
   var excepciones = [];
+  var arbol;
 %}
 
 /* Análisis Lexico */
@@ -125,7 +126,14 @@ START : SENTENCIAS_GLOBALES EOF      {
                                       }
                                       return arbol;
                                     }
-      | EOF                         { return new Arbol([]); }
+      | EOF                         {
+                                      arbol = new Arbol([]);
+                                      if (excepciones.length > 0) {
+                                        arbol.excepciones = arbol.excepciones.concat(excepciones);
+                                        excepciones = [];
+                                      }
+                                      return arbol;
+                                    }
       ;
 
 SENTENCIAS_GLOBALES : SENTENCIAS_GLOBALES SENTENCIA_GLOBAL    {
