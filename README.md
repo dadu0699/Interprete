@@ -27,13 +27,13 @@ ng serve
 ## Dependencias<a name="dependencias"></a>
 Dependencias utilizadas en la creación del intérprete 
 
-### Angular Material<a name="angularMaterial"></a>
+### Angular Material v12.0.2<a name="angularMaterial"></a>
 Módulo de diseño material para componentes de angular, el cual se instaló a través del siguiente comando
 ```
 ng add @angular/material
 ```
 
-### Bootstrap<a name="bootstrap"></a>
+### Bootstrap v5.0.1<a name="bootstrap"></a>
 Módulo de diseño, el cual se instaló a través del siguiente comando
 ```
 npm install bootstrap
@@ -53,7 +53,7 @@ Luego de la instalación se agregaron las siguientes líneas en las áreas de **
 ...
 ```
 
-### CodeMirror<a name="codeMirror"></a>
+### CodeMirror v5.62.0<a name="codeMirror"></a>
 Módulo de diseño el cual permite agregar un editor de texto o código, el cual se instaló a través del siguiente comando
 ```
 npm install @ctrl/ngx-codemirror codemirror
@@ -68,7 +68,7 @@ Luego de la instalación se agregó las siguiente sección **_allowedCommonJsDep
 ...
 ```
 
-### ECharts<a name="eCharts"></a>
+### ECharts v5.1.1<a name="eCharts"></a>
 Módulo de diseño el cual permite agregar gráficas, el cual permitió crear el AST, se instaló a través de los siguientes comandos
 ```
 npm install echarts
@@ -84,7 +84,7 @@ Luego de la instalación se agregaron las siguientes líneas en las áreas de **
 ...
 ```
 
-### Jison<a name="jison"></a>
+### Jison v0.4.18<a name="jison"></a>
 Módulo el cual permite crear el parser para el intérprete, para esto se necesitó instalar de manera global en el equipo
 ```
 npm install -g jison 
@@ -111,7 +111,7 @@ El cual permite importar nuestra gramática de la siguiente manera
 import { parser } from 'src/app/utils/gramatica/gramatica.js';
 ```
 
-### Angular-cli-ghpages<a name="ghpages"></a>
+### Angular-cli-ghpages v1.0.0<a name="ghpages"></a>
 Módulo el cual permite desplegar el proyecto en github pages, para esto se necesitó instalar de manera global en el equipo
 ```
 ng add angular-cli-ghpages

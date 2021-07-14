@@ -5,7 +5,7 @@
     <mat-tab label="NEW {{tab['id']}}">
       <ng-template matTabContent>
         <div style="height: calc(100vh - 116.5px);">
-          <ngx-codemirror [(ngModel)]="tab['content']" [options]="options"></ngx-codemirror>
+          <ngx-codemirror #tabEditor [(ngModel)]="tab['content']" [options]="options"></ngx-codemirror>
         </div>
       </ng-template>
     </mat-tab>

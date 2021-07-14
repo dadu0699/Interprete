@@ -27,7 +27,7 @@
     "@angular/router": "~12.1.1",
     "@ctrl/ngx-codemirror": "^5.0.0",
     "bootstrap": "^5.0.1",
-    "codemirror": "^5.61.1",
+    "codemirror": "^5.62.0",
     "echarts": "^5.1.1",
     "ngx-echarts": "^7.0.1",
     "rxjs": "~6.6.0",
