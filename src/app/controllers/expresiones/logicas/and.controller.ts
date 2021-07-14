@@ -8,11 +8,10 @@ export class And extends Nodo {
   public opIzquierdo: Nodo;
   public opDerecho: Nodo;
 
-  constructor(tipoOBJ: Tipo, tipo: Tipo, opIzquierdo: Nodo, opDerecho: Nodo,
+  constructor(opIzquierdo: Nodo, opDerecho: Nodo,
     linea: number, columna: number) {
-    super(tipoOBJ, tipo, linea, columna);
+    super(Tipo.PRIMITIVO, Tipo.BOOLEAN, linea, columna);
 
-    this.tipo = Tipo.BOOLEAN;
     this.opIzquierdo = opIzquierdo;
     this.opDerecho = opDerecho;
   }

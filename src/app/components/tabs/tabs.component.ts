@@ -100,9 +100,20 @@ export class TabsComponent implements OnInit {
     const tabla: Tabla = new Tabla('Global', undefined);
 
     arbol.instrucciones.forEach(instruccion => {
-      console.log(instruccion.ejecutar(tabla, arbol));
+      instruccion.ejecutar(tabla, arbol);
     });
 
     this._data.changeAST(arbol.getAST());
+    this.cargarConsola(arbol.consola);
+  }
+
+  private cargarConsola(salidas: Array<string>): void {
+    let consola = '';
+
+    salidas.forEach(salida => {
+      consola += salida;
+    });
+
+    this._data.changeConsola(consola);
   }
 }

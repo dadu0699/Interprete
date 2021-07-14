@@ -8,9 +8,9 @@ export class Suma extends Nodo {
   public opIzquierdo: Nodo;
   public opDerecho: Nodo;
 
-  constructor(tipoOBJ: Tipo, tipo: Tipo, opIzquierdo: Nodo, opDerecho: Nodo,
+  constructor(opIzquierdo: Nodo, opDerecho: Nodo,
     linea: number, columna: number) {
-    super(tipoOBJ, tipo, linea, columna);
+    super(Tipo.PRIMITIVO, Tipo.DOUBLE, linea, columna);
 
     this.opIzquierdo = opIzquierdo;
     this.opDerecho = opDerecho;
@@ -26,7 +26,7 @@ export class Suma extends Nodo {
       return resDerecho;
 
 
-    if (this.opIzquierdo.tipo == Tipo.STRING && this.opDerecho.tipo == Tipo.STRING) {
+    if (this.opIzquierdo.tipo == Tipo.STRING || this.opDerecho.tipo == Tipo.STRING) {
       this.tipo = Tipo.STRING;
       return `${resIzquierdo}${resDerecho}`;
 

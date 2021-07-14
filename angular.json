@@ -42,7 +42,9 @@
               "codemirror/addon/fold/foldgutter",
               "codemirror/addon/lint/lint",
               "codemirror/addon/edit/closebrackets",
-              "codemirror/mode/javascript/javascript"
+              "codemirror/mode/javascript/javascript",
+
+              "src/app/utils/gramatica/gramatica.js"
             ]
           },
           "configurations": {

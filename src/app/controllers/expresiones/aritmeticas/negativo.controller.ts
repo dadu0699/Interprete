@@ -7,9 +7,9 @@ import { Tipo } from 'src/app/models/tipo.model';
 export class Negativo extends Nodo {
   public opIzquierdo: Nodo;
 
-  constructor(tipoOBJ: Tipo, tipo: Tipo, opIzquierdo: Nodo,
+  constructor(opIzquierdo: Nodo, opDerecho: Nodo,
     linea: number, columna: number) {
-    super(tipoOBJ, tipo, linea, columna);
+    super(Tipo.PRIMITIVO, Tipo.DOUBLE, linea, columna);
 
     this.opIzquierdo = opIzquierdo;
   }
