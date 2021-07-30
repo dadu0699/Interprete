@@ -19,12 +19,12 @@ export class ConsolaComponent implements OnInit {
 
   ngOnInit(): void {
     this._data.currentConsola.subscribe(consola => this.content = consola);
-    this.content = 'Hello World!';
   }
 
-  private optionsEditor(): any {
+  private optionsEditor(): Object {
     return {
       theme: 'material-ocean',
+      // mode: null,
       lineNumbers: false,
       lineWrapping: false,
       foldGutter: true,

@@ -10,13 +10,29 @@ import { DataService } from 'src/app/services/data.service'
 })
 export class AstComponent implements OnInit {
   public options: any;
+  public updateOptions: any;
   public autoResize: boolean;
+
+  private data: any[];
 
   constructor(private _dataService: DataService) {
     this.autoResize = true;
+    this.options = this.optionsAST();
 
-    this.options = {
+    this.data = [];
+  }
+
+  ngOnInit(): void {
+    this._dataService.currentAST.subscribe(ast => this.setData(ast));
+  }
+
+  private optionsAST(): Object {
+    return {
       backgroundColor: '#0f111a',
+
+      // title: {
+      //   text: 'Dynamic Data AST'
+      // },
 
       tooltip: {
         trigger: 'item',
@@ -38,8 +54,9 @@ export class AstComponent implements OnInit {
 
       series: [
         {
+          name: 'Mocking Data',
           type: 'tree',
-          data: [],
+          data: this.data,
           orient: 'vertical',
 
           // width: '100%',
@@ -50,6 +67,8 @@ export class AstComponent implements OnInit {
           top: '5%',
           bottom: '5%',
 
+          showSymbol: false,
+          hoverAnimation: false,
           symbol: 'emptyCircle',
           symbolSize: 10,
 
@@ -94,11 +113,13 @@ export class AstComponent implements OnInit {
     };
   }
 
-  ngOnInit(): void {
-    this._dataService.currentAST.subscribe(ast => this.setData(ast));
-  }
-
   public setData(data: object): void {
-    this.options.series[0].data = [data];
+    this.data = [data];
+
+    this.updateOptions = {
+      series: [{
+        data: this.data
+      }]
+    };
   }
 }

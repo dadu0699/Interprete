@@ -36,7 +36,7 @@ export class TabsComponent implements OnInit {
 
   ngOnInit(): void { }
 
-  private optionsEditor(): any {
+  private optionsEditor(): Object {
     return {
       theme: 'dracula',
       mode: 'application/typescript',
@@ -80,8 +80,8 @@ export class TabsComponent implements OnInit {
   public guardar() {
     this.guardarArchivo(
       this.tabs[this.indexTab]['content'],
-      'text/xml',
-      `tab${this.indexTab}.xml`
+      'text/typescript',
+      `new ${this.indexTab}.ts`
     );
   }
 

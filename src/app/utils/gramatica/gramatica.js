@@ -409,7 +409,7 @@ case 27:
                               instrucciones: new Primitivo(Tipo.PRIMITIVO, Tipo.INTEGER, $$[$0],
                                 this._$.first_line, this._$.first_column),
 
-                              grafica: new NodoGrafico('VALOR', [
+                              grafica: new NodoGrafico('DIGITO', [
                                 new NodoGrafico($$[$0], [])
                               ])
                             }
@@ -421,7 +421,7 @@ case 28:
                               instrucciones: new Primitivo(Tipo.PRIMITIVO, Tipo.DOUBLE, $$[$0],
                                 this._$.first_line, this._$.first_column),
 
-                              grafica: new NodoGrafico('VALOR', [
+                              grafica: new NodoGrafico('DECIMAL', [
                                 new NodoGrafico($$[$0], [])
                               ])
                             }
@@ -433,7 +433,7 @@ case 29:
                               instrucciones: new Primitivo(Tipo.PRIMITIVO, Tipo.STRING, $$[$0],
                                 this._$.first_line, this._$.first_column),
 
-                              grafica: new NodoGrafico('VALOR', [
+                              grafica: new NodoGrafico('CADENA', [
                                 new NodoGrafico($$[$0], [])
                               ])
                             }
@@ -445,7 +445,7 @@ case 30:
                               instrucciones: new Primitivo(Tipo.PRIMITIVO, Tipo.BOOLEAN, false,
                                 this._$.first_line, this._$.first_column),
 
-                              grafica: new NodoGrafico('VALOR', [
+                              grafica: new NodoGrafico('BOOLEAN', [
                                 new NodoGrafico('false', [])
                               ])
                             }
@@ -457,7 +457,7 @@ case 31:
                               instrucciones: new Primitivo(Tipo.PRIMITIVO, Tipo.BOOLEAN, true,
                                 this._$.first_line, this._$.first_column),
 
-                              grafica: new NodoGrafico('VALOR', [
+                              grafica: new NodoGrafico('BOOLEAN', [
                                 new NodoGrafico('true', [])
                               ])
                             }

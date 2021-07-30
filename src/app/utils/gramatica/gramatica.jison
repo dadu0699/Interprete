@@ -408,7 +408,7 @@ VALOR : 'digito'          {
                               instrucciones: new Primitivo(Tipo.PRIMITIVO, Tipo.INTEGER, $1,
                                 this._$.first_line, this._$.first_column),
 
-                              grafica: new NodoGrafico('VALOR', [
+                              grafica: new NodoGrafico('DIGITO', [
                                 new NodoGrafico($1, [])
                               ])
                             }
@@ -418,7 +418,7 @@ VALOR : 'digito'          {
                               instrucciones: new Primitivo(Tipo.PRIMITIVO, Tipo.DOUBLE, $1,
                                 this._$.first_line, this._$.first_column),
 
-                              grafica: new NodoGrafico('VALOR', [
+                              grafica: new NodoGrafico('DECIMAL', [
                                 new NodoGrafico($1, [])
                               ])
                             }
@@ -428,7 +428,7 @@ VALOR : 'digito'          {
                               instrucciones: new Primitivo(Tipo.PRIMITIVO, Tipo.STRING, $1,
                                 this._$.first_line, this._$.first_column),
 
-                              grafica: new NodoGrafico('VALOR', [
+                              grafica: new NodoGrafico('CADENA', [
                                 new NodoGrafico($1, [])
                               ])
                             }
@@ -438,7 +438,7 @@ VALOR : 'digito'          {
                               instrucciones: new Primitivo(Tipo.PRIMITIVO, Tipo.BOOLEAN, false,
                                 this._$.first_line, this._$.first_column),
 
-                              grafica: new NodoGrafico('VALOR', [
+                              grafica: new NodoGrafico('BOOLEAN', [
                                 new NodoGrafico('false', [])
                               ])
                             }
@@ -448,7 +448,7 @@ VALOR : 'digito'          {
                               instrucciones: new Primitivo(Tipo.PRIMITIVO, Tipo.BOOLEAN, true,
                                 this._$.first_line, this._$.first_column),
 
-                              grafica: new NodoGrafico('VALOR', [
+                              grafica: new NodoGrafico('BOOLEAN', [
                                 new NodoGrafico('true', [])
                               ])
                             }
