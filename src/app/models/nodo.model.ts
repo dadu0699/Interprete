@@ -5,12 +5,12 @@ import { Tipo } from "./tipo.model";
 export abstract class Nodo {
   public linea: number;
   public columna: number;
+  public tipoObjeto: Tipo;
   public tipo: Tipo;
-  public tipoOBJ: Tipo;
 
-  constructor(tipoOBJ: Tipo, tipo: Tipo,
+  constructor(tipoObjeto: Tipo, tipo: Tipo,
     linea: number, columna: number) {
-    this.tipoOBJ = tipoOBJ;
+    this.tipoObjeto = tipoObjeto;
     this.tipo = tipo;
     this.linea = linea;
     this.columna = columna;

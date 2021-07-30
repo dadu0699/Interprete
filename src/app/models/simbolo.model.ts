@@ -1,7 +1,7 @@
 import { Tipo } from './tipo.model';
 
 export class Simbolo {
-  public tipoOBJ: Tipo;
+  public tipoObjeto: Tipo;
   public tipo: Tipo;
   public identificador: string;
   public valor: Object;
@@ -10,9 +10,9 @@ export class Simbolo {
   public linea: number;
   public columna: number;
 
-  constructor(tipoOBJ: Tipo, tipo: Tipo, identificador: string,
+  constructor(tipoObjeto: Tipo, tipo: Tipo, identificador: string,
     valor: Object, ambito: string, linea: number, columna: number) {
-    this.tipoOBJ = tipoOBJ;
+    this.tipoObjeto = tipoObjeto;
     this.tipo = tipo;
     this.identificador = identificador;
     this.valor = valor;
