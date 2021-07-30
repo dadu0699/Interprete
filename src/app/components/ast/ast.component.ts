@@ -67,8 +67,6 @@ export class AstComponent implements OnInit {
           top: '5%',
           bottom: '5%',
 
-          showSymbol: false,
-          hoverAnimation: false,
           symbol: 'emptyCircle',
           symbolSize: 10,
 

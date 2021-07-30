@@ -34,15 +34,12 @@
 
 /* Análisis Lexico */
 %lex
-%options case-sensitive
+%options case-insensitive
 comentarios       (\/\*[\s\S]*?\*\/|\/\/.*)
 identificador     (([a-zA-Z_])[a-zA-Z0-9_]*)
 digito            ([0-9]+)
 decimal           ({digito}"."{digito}+)
-comillaSimple     ("'")
-comillaDoble      ("\"")
-comillas          ({comillaDoble}|{comillaSimple})
-cadena            ({comillas}((?:\\{comillas}|(?:(?!{comillas}).))*){comillas})
+cadena            ("'"((?:\\"'"|(?:(?!"'").))*)"'")
 
 %%
 \s+               /* ignorar espacios en blanco */
@@ -62,15 +59,19 @@ cadena            ({comillas}((?:\\{comillas}|(?:(?!{comillas}).))*){comillas})
 "integer"               return 'integer'
 "string"                return 'string'
 "boolean"               return 'boolean'
-"double"                return 'double'
+"real"                  return 'real'
 "void"                  return 'void'
 
 "false"                 return 'false'
 "true"                  return 'true'
 "null"                  return 'null'
 
-"console"               return 'console'
-"log"                   return 'log'
+"program"               return 'program'
+"begin"                 return 'begin'
+"end"                   return  'end'
+
+"write"                 return 'write'
+"writeln"               return 'writeln'
 
 "<="                    return '<='
 "<"                     return '<'
@@ -78,9 +79,9 @@ cadena            ({comillas}((?:\\{comillas}|(?:(?!{comillas}).))*){comillas})
 ">="                    return '>='
 ">"                     return '>'
 "!="                    return '!='
-"||"                    return '||'
-"&&"                    return '&&'
-"!"                     return '!'
+"or"                    return 'or'
+"and"                   return 'and'
+"not"                   return 'not'
 "="                     return '='
 // "++"                    return '++'
 "+"                     return '+'
@@ -105,54 +106,86 @@ cadena            ({comillas}((?:\\{comillas}|(?:(?!{comillas}).))*){comillas})
 /* Asociación y precedencia de operadores */
 %right '='
 %right '?'
-%left '||'
-%left '&&'
+%left 'or'
+%left 'and'
 %left '==', '!='
 %left '>=', '<=', '<', '>'
 %left '+' '-'
 %left '*' '/' '%'
 %left '**'
-%right '!'
+%right 'not'
 %left UMINUS UPLUS
 %right '++' '--'
 
 %start START
 %% /* Gramática */
 
-START : SENTENCIAS_GLOBALES EOF      {
-                                      const arbol = new Arbol($1.instrucciones);
-                                      arbol.graficaAST = new NodoGrafico('RAIZ', [$1.grafica]);
+START : 'program' 'identificador' ';' BODY '.' EOF                      {
+                                                                          arbol = new Arbol($4.instrucciones);
 
-                                      if (excepciones.length > 0) {
-                                        arbol.excepciones.concat(excepciones);
-                                        excepciones = [];
-                                      }
-                                      return arbol;
-                                    }
-      | EOF                         {
-                                      arbol = new Arbol([]);
-                                      if (excepciones.length > 0) {
-                                        arbol.excepciones = arbol.excepciones.concat(excepciones);
-                                        excepciones = [];
-                                      }
-                                      return arbol;
-                                    }
+                                                                          arbol.graficaAST = new NodoGrafico('RAIZ', [
+                                                                            new NodoGrafico('program', []),
+                                                                            new NodoGrafico('identificador', [
+                                                                              new NodoGrafico($2, []),
+                                                                            ]),
+                                                                            new NodoGrafico(';', []),
+                                                                            $4.grafica,
+                                                                            new NodoGrafico('.', []),
+                                                                          ]);
+
+                                                                          if (excepciones.length > 0) {
+                                                                            arbol.excepciones.concat(excepciones);
+                                                                            excepciones = [];
+                                                                          }
+
+                                                                          return arbol;
+                                                                        }
+      | 'program' 'identificador' ';' SENTENCIAS_GLOBALES BODY '.' EOF  {
+                                                                          arbol = new Arbol($4.instrucciones);
+
+                                                                          arbol.graficaAST = new NodoGrafico('RAIZ', [
+                                                                            new NodoGrafico('program', []),
+                                                                            new NodoGrafico('identificador', [
+                                                                              new NodoGrafico($2, []),
+                                                                            ]),
+                                                                            new NodoGrafico(';', []),
+                                                                            $4.grafica,
+                                                                            $5.grafica,
+                                                                            new NodoGrafico('.', []),
+                                                                          ]);
+
+                                                                          if (excepciones.length > 0) {
+                                                                            arbol.excepciones.concat(excepciones);
+                                                                            excepciones = [];
+                                                                          }
+
+                                                                          return arbol;
+                                                                        }
+      | EOF                                                             {
+                                                                          arbol = new Arbol([]);
+                                                                          if (excepciones.length > 0) {
+                                                                            arbol.excepciones = arbol.excepciones.concat(excepciones);
+                                                                            excepciones = [];
+                                                                          }
+                                                                          return arbol;
+                                                                        }
       ;
 
 SENTENCIAS_GLOBALES : SENTENCIAS_GLOBALES SENTENCIA_GLOBAL    {
                                                                 $1.instrucciones.push($2.instrucciones);
                                                                 $$ = {
                                                                   instrucciones: $1.instrucciones,
-                                                                  grafica: new NodoGrafico('SENTENCIAS_GLOBALES',
-                                                                    [$1.grafica, $2.grafica]
-                                                                  )
-                                                                }
+                                                                  grafica: new NodoGrafico('SENTENCIAS_GLOBALES', [
+                                                                    $1.grafica,
+                                                                    $2.grafica,
+                                                                  ]),
+                                                                };
                                                               }
                     | SENTENCIA_GLOBAL                        {
                                                                 $$ = {
                                                                   instrucciones: [$1.instrucciones],
-                                                                  grafica: new NodoGrafico('SENTENCIAS_GLOBALES', [$1.grafica])
-                                                                }
+                                                                  grafica: new NodoGrafico('SENTENCIAS_GLOBALES', [$1.grafica]),
+                                                                };
                                                               }
                     ;
 
@@ -161,39 +194,108 @@ SENTENCIA_GLOBAL : IMPRESION ';'  {
                                       instrucciones: $1.instrucciones,
                                       grafica: new NodoGrafico('SENTENCIA_GLOBAL', [
                                         $1.grafica,
-                                        new NodoGrafico(';', [])
-                                      ])
-                                    }
+                                        new NodoGrafico(';', []),
+                                      ]),
+                                    };
                                   }
                  ;
 
-IMPRESION : 'console' '.' 'log' '(' ')'                       {
-                                                                $$ = {
-                                                                  instrucciones: new Imprimir([],
-                                                                    this._$.first_line, this._$.first_column),
-                                                                  grafica: new NodoGrafico('IMPRESION', [
-                                                                    new NodoGrafico('console', []),
-                                                                    new NodoGrafico('.', []),
-                                                                    new NodoGrafico('log', []),
-                                                                    new NodoGrafico('(', []),
-                                                                    new NodoGrafico(')', [])
-                                                                  ])
-                                                                }
-                                                              }
-          | 'console' '.' 'log' '(' LISTADO_EXPRESIONES ')'   {
-                                                                $$ = {
-                                                                  instrucciones: new Imprimir($5.instrucciones,
-                                                                    this._$.first_line, this._$.first_column),
-                                                                  grafica: new NodoGrafico('IMPRESION', [
-                                                                    new NodoGrafico('console', []),
-                                                                    new NodoGrafico('.', []),
-                                                                    new NodoGrafico('log', []),
-                                                                    new NodoGrafico('(', []),
-                                                                    $5.grafica,
-                                                                    new NodoGrafico(')', [])
-                                                                  ])
-                                                                }
-                                                              }
+BODY : 'begin' 'end'                  {
+                                        $$ = {
+                                          instrucciones: [],
+                                          grafica: new NodoGrafico('BODY', [
+                                            new NodoGrafico('begin', []),
+                                            new NodoGrafico('end', []),
+                                          ]),
+                                        };
+                                      }
+     | 'begin' SENTENCIAS_BODY 'end'  {
+                                        $$ = {
+                                          instrucciones: $2.instrucciones,
+                                          grafica: new NodoGrafico('BODY', [
+                                            new NodoGrafico('begin', []),
+                                            $2.grafica,
+                                            new NodoGrafico('end', []),
+                                          ]),
+                                        };
+                                      }
+     ;
+
+SENTENCIAS_BODY : SENTENCIAS_BODY SENTENCIA_BODY    {
+                                                      $1.instrucciones.push($2.instrucciones);
+                                                      $$ = {
+                                                        instrucciones: $1.instrucciones,
+                                                        grafica: new NodoGrafico('SENTENCIAS_BODY', [
+                                                          $1.grafica,
+                                                          $2.grafica,
+                                                        ]),
+                                                      };
+                                                    }
+                    | SENTENCIA_BODY                {
+                                                      $$ = {
+                                                        instrucciones: [$1.instrucciones],
+                                                        grafica: new NodoGrafico('SENTENCIAS_BODY', [$1.grafica]),
+                                                      };
+                                                    }
+                    ;
+
+SENTENCIA_BODY : IMPRESION ';'  {
+                                    $$ = {
+                                      instrucciones: $1.instrucciones,
+                                      grafica: new NodoGrafico('SENTENCIA_BODY', [
+                                        $1.grafica,
+                                        new NodoGrafico(';', []),
+                                      ]),
+                                    };
+                                  }
+               ;
+
+IMPRESION : 'write' '(' ')'                       {
+                                                    $$ = {
+                                                      instrucciones: new Imprimir(Tipo.WRITE, [],
+                                                        this._$.first_line, this._$.first_column),
+                                                      grafica: new NodoGrafico('IMPRESION', [
+                                                        new NodoGrafico('write', []),
+                                                        new NodoGrafico('(', []),
+                                                        new NodoGrafico(')', []),
+                                                      ]),
+                                                    };
+                                                  }
+          | 'write' '(' LISTADO_EXPRESIONES ')'   {
+                                                    $$ = {
+                                                      instrucciones: new Imprimir(Tipo.WRITE, $3.instrucciones,
+                                                        this._$.first_line, this._$.first_column),
+                                                      grafica: new NodoGrafico('IMPRESION', [
+                                                        new NodoGrafico('write', []),
+                                                        new NodoGrafico('(', []),
+                                                        $3.grafica,
+                                                        new NodoGrafico(')', []),
+                                                      ]),
+                                                    };
+                                                  }
+          | 'writeln' '(' ')'                     {
+                                                    $$ = {
+                                                      instrucciones: new Imprimir(Tipo.WRITELN, [],
+                                                        this._$.first_line, this._$.first_column),
+                                                      grafica: new NodoGrafico('IMPRESION', [
+                                                        new NodoGrafico('writeln', []),
+                                                        new NodoGrafico('(', []),
+                                                        new NodoGrafico(')', []),
+                                                      ]),
+                                                    };
+                                                  }
+          | 'writeln' '(' LISTADO_EXPRESIONES ')' {
+                                                    $$ = {
+                                                      instrucciones: new Imprimir(Tipo.WRITELN, $3.instrucciones,
+                                                        this._$.first_line, this._$.first_column),
+                                                      grafica: new NodoGrafico('IMPRESION', [
+                                                        new NodoGrafico('writeln', []),
+                                                        new NodoGrafico('(', []),
+                                                        $3.grafica,
+                                                        new NodoGrafico(')', []),
+                                                      ]),
+                                                    };
+                                                  }
           ;
 
 LISTADO_EXPRESIONES : LISTADO_EXPRESIONES ',' EXPRESION   {
@@ -203,9 +305,9 @@ LISTADO_EXPRESIONES : LISTADO_EXPRESIONES ',' EXPRESION   {
                                                               grafica: new NodoGrafico('LISTADO_EXPRESIONES', [
                                                                 $1.grafica,
                                                                 new NodoGrafico(',', []),
-                                                                $3.grafica
+                                                                $3.grafica,
                                                               ]),
-                                                              gramatica: `<LISTADO_EXPRESIONES> ::= <LISTADO_EXPRESIONES> "," <EXPRESION> \n`
+                                                              gramatica: `<LISTADO_EXPRESIONES> ::= <LISTADO_EXPRESIONES> "," <EXPRESION> \n`,
                                                             };
                                                             $$.gramatica += $1.gramatica;
                                                             $$.gramatica += $3.gramatica;
@@ -216,7 +318,7 @@ LISTADO_EXPRESIONES : LISTADO_EXPRESIONES ',' EXPRESION   {
                                                               grafica: new NodoGrafico('LISTADO_EXPRESIONES', [
                                                                 $1.grafica
                                                               ]),
-                                                              gramatica: `<LISTADO_EXPRESIONES> ::= <EXPRESION> \n`
+                                                              gramatica: `<LISTADO_EXPRESIONES> ::= <EXPRESION> \n`,
                                                             };
                                                             $$.gramatica += $1.gramatica;
                                                           }
@@ -224,36 +326,36 @@ LISTADO_EXPRESIONES : LISTADO_EXPRESIONES ',' EXPRESION   {
 
 EXPRESION
           // LOGICA
-          :  EXPRESION '&&' EXPRESION   {
+          :  EXPRESION 'and' EXPRESION   {
                                           $$ = {
                                             instrucciones: new And($1.instrucciones, $3.instrucciones,
                                               this._$.first_line, this._$.first_column),
                                             grafica: new NodoGrafico('EXPRESION', [
                                               $1.grafica,
-                                              new NodoGrafico('&&', []),
+                                              new NodoGrafico('and', []),
                                               $3.grafica
-                                            ])
-                                          }
+                                            ]),
+                                          };
                                         }
-          | EXPRESION '||' EXPRESION    {
+          | EXPRESION 'or' EXPRESION    {
                                           $$ = {
                                             instrucciones: new Or($1.instrucciones, $3.instrucciones,
                                               this._$.first_line, this._$.first_column),
                                             grafica: new NodoGrafico('EXPRESION', [
                                               $1.grafica,
-                                              new NodoGrafico('||', []),
+                                              new NodoGrafico('or', []),
                                               $3.grafica
-                                            ])
-                                          }
+                                            ]),
+                                          };
                                         }
-          | '!' EXPRESION               {
+          | 'not' EXPRESION               {
                                           $$ = {
                                             instrucciones: new Not($2.instrucciones,
                                                 this._$.first_line, this._$.first_column),
                                             grafica: new NodoGrafico('EXPRESION', [
-                                              new NodoGrafico('!', [$2.grafica])
-                                            ])
-                                          }
+                                              new NodoGrafico('not', [$2.grafica])
+                                            ]),
+                                          };
                                         }
           // RELACIONAL
           | EXPRESION '<' EXPRESION     {
@@ -263,9 +365,9 @@ EXPRESION
                                             grafica: new NodoGrafico('EXPRESION', [
                                               $1.grafica,
                                               new NodoGrafico('<', []),
-                                              $3.grafica
-                                            ])
-                                          }
+                                              $3.grafica,
+                                            ]),
+                                          };
                                         }
           | EXPRESION '>' EXPRESION     {
                                           $$ = {
@@ -274,9 +376,9 @@ EXPRESION
                                             grafica: new NodoGrafico('EXPRESION', [
                                               $1.grafica,
                                               new NodoGrafico('>', []),
-                                              $3.grafica
-                                            ])
-                                          }
+                                              $3.grafica,
+                                            ]),
+                                          };
                                         }
           | EXPRESION '<=' EXPRESION    {
                                           $$ = {
@@ -285,9 +387,9 @@ EXPRESION
                                             grafica: new NodoGrafico('EXPRESION', [
                                               $1.grafica,
                                               new NodoGrafico('<=', []),
-                                              $3.grafica
-                                            ])
-                                          }
+                                              $3.grafica,
+                                            ]),
+                                          };
                                         }
           | EXPRESION '>=' EXPRESION    {
                                           $$ = {
@@ -296,9 +398,9 @@ EXPRESION
                                             grafica: new NodoGrafico('EXPRESION', [
                                               $1.grafica,
                                               new NodoGrafico('>=', []),
-                                              $3.grafica
-                                            ])
-                                          }
+                                              $3.grafica,
+                                            ]),
+                                          };
                                         }
           | EXPRESION '==' EXPRESION    {
                                           $$ = {
@@ -307,9 +409,9 @@ EXPRESION
                                             grafica: new NodoGrafico('EXPRESION', [
                                               $1.grafica,
                                               new NodoGrafico('==', []),
-                                              $3.grafica
-                                            ])
-                                          }
+                                              $3.grafica,
+                                            ]),
+                                          };
                                         }
           | EXPRESION '!=' EXPRESION    {
                                           $$ = {
@@ -318,9 +420,9 @@ EXPRESION
                                             grafica: new NodoGrafico('EXPRESION', [
                                               $1.grafica,
                                               new NodoGrafico('!=', []),
-                                              $3.grafica
-                                            ])
-                                          }
+                                              $3.grafica,
+                                            ]),
+                                          };
                                         }
           // ARITMETICA
           | EXPRESION '+' EXPRESION       {
@@ -330,9 +432,9 @@ EXPRESION
                                               grafica: new NodoGrafico('EXPRESION', [
                                                 $1.grafica,
                                                 new NodoGrafico('+', []),
-                                                $3.grafica
-                                              ])
-                                            }
+                                                $3.grafica,
+                                              ]),
+                                            };
                                           }
           | EXPRESION '-' EXPRESION       {
                                             $$ = {
@@ -341,9 +443,9 @@ EXPRESION
                                               grafica: new NodoGrafico('EXPRESION', [
                                                 $1.grafica,
                                                 new NodoGrafico('-', []),
-                                                $3.grafica
-                                              ])
-                                            }
+                                                $3.grafica,
+                                              ]),
+                                            };
                                           }
           | EXPRESION '*' EXPRESION       {
                                             $$ = {
@@ -352,9 +454,9 @@ EXPRESION
                                               grafica: new NodoGrafico('EXPRESION', [
                                                 $1.grafica,
                                                 new NodoGrafico('*', []),
-                                                $3.grafica
-                                              ])
-                                            }
+                                                $3.grafica,
+                                              ]),
+                                            };
                                           }
           | EXPRESION '/' EXPRESION       {
                                             $$ = {
@@ -363,9 +465,9 @@ EXPRESION
                                               grafica: new NodoGrafico('EXPRESION', [
                                                 $1.grafica,
                                                 new NodoGrafico('/', []),
-                                                $3.grafica
-                                              ])
-                                            }
+                                                $3.grafica,
+                                              ]),
+                                            };
                                           }
           | '(' EXPRESION ')'             {
                                             $$ = {
@@ -373,9 +475,9 @@ EXPRESION
                                               grafica: new NodoGrafico('EXPRESION', [
                                                 new NodoGrafico('(', []),
                                                 $2.grafica,
-                                                new NodoGrafico(')', [])
-                                              ])
-                                            }
+                                                new NodoGrafico(')', []),
+                                              ]),
+                                            };
                                           }
           | '-' EXPRESION %prec UMINUS    {
                                             $$ = {
@@ -383,8 +485,8 @@ EXPRESION
                                                 this._$.first_line, this._$.first_column),
                                               grafica: new NodoGrafico('EXPRESION', [
                                                 new NodoGrafico('-', [$2.grafica])
-                                              ])
-                                            }
+                                              ]),
+                                            };
                                           }
           | '+' EXPRESION %prec UPLUS    {
                                             $$ = {
@@ -392,65 +494,65 @@ EXPRESION
                                                 this._$.first_line, this._$.first_column),
                                               grafica: new NodoGrafico('EXPRESION', [
                                                 new NodoGrafico('-', [$2.grafica])
-                                              ])
-                                            }
+                                              ]),
+                                            };
                                           }
           | VALOR                         {
                                             $$ = {
                                               instrucciones: $1.instrucciones,
-                                              grafica: new NodoGrafico('EXPRESION', [$1.grafica])
-                                            }
+                                              grafica: new NodoGrafico('EXPRESION', [$1.grafica]),
+                                            };
                                           }
           ;
 
 VALOR : 'digito'          {
                             $$ = {
-                              instrucciones: new Primitivo(Tipo.PRIMITIVO, Tipo.INTEGER, $1,
+                              instrucciones: new Primitivo(Tipo.INTEGER, $1,
                                 this._$.first_line, this._$.first_column),
 
                               grafica: new NodoGrafico('DIGITO', [
                                 new NodoGrafico($1, [])
-                              ])
-                            }
+                              ]),
+                            };
                           }
       | 'decimal'         {
                             $$ = {
-                              instrucciones: new Primitivo(Tipo.PRIMITIVO, Tipo.DOUBLE, $1,
+                              instrucciones: new Primitivo(Tipo.REAL, $1,
                                 this._$.first_line, this._$.first_column),
 
                               grafica: new NodoGrafico('DECIMAL', [
-                                new NodoGrafico($1, [])
-                              ])
-                            }
+                                new NodoGrafico($1, []),
+                              ]),
+                            };
                           }
       | 'cadena'          {
                             $$ = {
-                              instrucciones: new Primitivo(Tipo.PRIMITIVO, Tipo.STRING, $1,
+                              instrucciones: new Primitivo(Tipo.STRING, $1,
                                 this._$.first_line, this._$.first_column),
 
                               grafica: new NodoGrafico('CADENA', [
-                                new NodoGrafico($1, [])
-                              ])
-                            }
+                                new NodoGrafico($1, []),
+                              ]),
+                            };
                           }
       | 'false'           {
                             $$ = {
-                              instrucciones: new Primitivo(Tipo.PRIMITIVO, Tipo.BOOLEAN, false,
+                              instrucciones: new Primitivo(Tipo.BOOLEAN, false,
                                 this._$.first_line, this._$.first_column),
 
                               grafica: new NodoGrafico('BOOLEAN', [
-                                new NodoGrafico('false', [])
-                              ])
-                            }
+                                new NodoGrafico('false', []),
+                              ]),
+                            };
                           }
       | 'true'            {
                             $$ = {
-                              instrucciones: new Primitivo(Tipo.PRIMITIVO, Tipo.BOOLEAN, true,
+                              instrucciones: new Primitivo(Tipo.BOOLEAN, true,
                                 this._$.first_line, this._$.first_column),
 
                               grafica: new NodoGrafico('BOOLEAN', [
-                                new NodoGrafico('true', [])
-                              ])
-                            }
+                                new NodoGrafico('true', []),
+                              ]),
+                            };
                           }
       ;

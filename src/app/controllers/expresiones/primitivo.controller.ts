@@ -6,11 +6,10 @@ import { Tipo } from 'src/app/models/tipo.model';
 export class Primitivo extends Nodo {
   public valor: Object;
 
-  constructor(tipoObjeto: Tipo, tipo: Tipo, valor: Object,
+  constructor(tipo: Tipo, valor: Object,
     linea: number, columna: number) {
-    super(tipoObjeto, tipo, linea, columna);
+    super(Tipo.PRIMITIVO, tipo, linea, columna);
 
-    this.tipoObjeto = Tipo.PRIMITIVO;
     this.valor = valor;
   }
 

@@ -7,9 +7,9 @@ import { Tipo } from 'src/app/models/tipo.model';
 export class Imprimir extends Nodo {
   public expresiones: Array<Nodo>;
 
-  constructor(expresiones: Array<Nodo>,
+  constructor(tipoObjeto: Tipo, expresiones: Array<Nodo>,
     linea: number, columna: number) {
-    super(Tipo.VOID, Tipo.VOID, linea, columna);
+    super(tipoObjeto, Tipo.VOID, linea, columna);
 
     this.expresiones = expresiones;
   }
@@ -26,7 +26,11 @@ export class Imprimir extends Nodo {
       consola = `${consola} ${expresion.ejecutar(tabla, arbol)}`;
     }
 
-    arbol.consola.push(`${consola}\n`);
+    if (this.tipoObjeto == Tipo.WRITELN) {
+      consola = `${consola}\n`;
+    }
+
+    arbol.consola.push(consola);
     return null;
   }
 }

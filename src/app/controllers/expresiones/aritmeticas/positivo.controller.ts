@@ -9,7 +9,7 @@ export class Positivo extends Nodo {
 
   constructor(opIzquierdo: Nodo, opDerecho: Nodo,
     linea: number, columna: number) {
-    super(Tipo.PRIMITIVO, Tipo.DOUBLE, linea, columna);
+    super(Tipo.PRIMITIVO, Tipo.REAL, linea, columna);
 
     this.opIzquierdo = opIzquierdo;
   }
@@ -23,8 +23,8 @@ export class Positivo extends Nodo {
       this.tipo = Tipo.INTEGER;
       return parseInt(resIzquierdo) * 1;
 
-    } else if (this.opIzquierdo.tipo == Tipo.DOUBLE) {
-      this.tipo = Tipo.DOUBLE;
+    } else if (this.opIzquierdo.tipo == Tipo.REAL) {
+      this.tipo = Tipo.REAL;
       return parseFloat(resIzquierdo) * 1;
 
     } else {

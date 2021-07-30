@@ -2,12 +2,15 @@ export enum Tipo {
   INTEGER = 'integer',
   STRING = 'string',
   BOOLEAN = 'boolean',
-  DOUBLE = 'double',
+  REAL = 'real',
   VOID = 'void',
 
   MAIN = 'main',
   FUNCION = 'funcion',
   VARIABLE = 'variable',
   CONSTANTE = 'constante',
-  PRIMITIVO = 'primitivo'
+  PRIMITIVO = 'primitivo',
+
+  WRITE = 'write',
+  WRITELN = 'writeln',
 };

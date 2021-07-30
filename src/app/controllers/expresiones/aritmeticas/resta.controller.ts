@@ -10,7 +10,7 @@ export class Resta extends Nodo {
 
   constructor(opIzquierdo: Nodo, opDerecho: Nodo,
     linea: number, columna: number) {
-    super(Tipo.PRIMITIVO, Tipo.DOUBLE, linea, columna);
+    super(Tipo.PRIMITIVO, Tipo.REAL, linea, columna);
 
     this.opIzquierdo = opIzquierdo;
     this.opDerecho = opDerecho;
@@ -30,9 +30,9 @@ export class Resta extends Nodo {
       this.tipo = Tipo.INTEGER;
       return parseInt(resIzquierdo) - parseInt(resDerecho);
 
-    } else if ((this.opIzquierdo.tipo == Tipo.DOUBLE || this.opIzquierdo.tipo == Tipo.INTEGER)
-      && (this.opDerecho.tipo == Tipo.DOUBLE || this.opDerecho.tipo == Tipo.INTEGER)) {
-      this.tipo = Tipo.DOUBLE;
+    } else if ((this.opIzquierdo.tipo == Tipo.REAL || this.opIzquierdo.tipo == Tipo.INTEGER)
+      && (this.opDerecho.tipo == Tipo.REAL || this.opDerecho.tipo == Tipo.INTEGER)) {
+      this.tipo = Tipo.REAL;
       return parseFloat(resIzquierdo) - parseFloat(resDerecho);
 
     } else {

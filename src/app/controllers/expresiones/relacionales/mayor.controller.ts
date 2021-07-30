@@ -25,8 +25,8 @@ export class Mayor extends Nodo {
     if (resDerecho instanceof Excepcion)
       return resDerecho;
 
-    if ((this.opIzquierdo.tipo == Tipo.DOUBLE || this.opIzquierdo.tipo == Tipo.INTEGER)
-      && (this.opDerecho.tipo == Tipo.DOUBLE || this.opDerecho.tipo == Tipo.INTEGER)) {
+    if ((this.opIzquierdo.tipo == Tipo.REAL || this.opIzquierdo.tipo == Tipo.INTEGER)
+      && (this.opDerecho.tipo == Tipo.REAL || this.opDerecho.tipo == Tipo.INTEGER)) {
       return parseFloat(resIzquierdo) > parseFloat(resDerecho);
 
     } else {

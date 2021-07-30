@@ -39,7 +39,7 @@ export class TabsComponent implements OnInit {
   private optionsEditor(): Object {
     return {
       theme: 'dracula',
-      mode: 'application/typescript',
+      mode: 'text/x-pascal',
       lineNumbers: true,
       lineWrapping: false,
       foldGutter: true,
@@ -81,7 +81,7 @@ export class TabsComponent implements OnInit {
     this.guardarArchivo(
       this.tabs[this.indexTab]['content'],
       'text/typescript',
-      `new ${this.indexTab}.ts`
+      `new ${this.indexTab}.pas`
     );
   }
 

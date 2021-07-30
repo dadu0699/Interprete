@@ -72,12 +72,12 @@
   }
 */
 var gramatica = (function(){
-var o=function(k,v,o,l){for(o=o||{},l=k.length;l--;o[k[l]]=v);return o},$V0=[1,6],$V1=[5,9],$V2=[1,17],$V3=[1,16],$V4=[1,19],$V5=[1,18],$V6=[1,21],$V7=[1,22],$V8=[1,23],$V9=[1,24],$Va=[1,25],$Vb=[13,15],$Vc=[1,28],$Vd=[1,29],$Ve=[1,30],$Vf=[1,31],$Vg=[1,32],$Vh=[1,33],$Vi=[1,34],$Vj=[1,35],$Vk=[1,36],$Vl=[1,37],$Vm=[1,38],$Vn=[1,39],$Vo=[13,15,17,18,20,21,22,23,24,25,26,27,28,29],$Vp=[13,15,17,18,20,21,22,23,24,25],$Vq=[13,15,17,18,24,25],$Vr=[13,15,17,18,20,21,22,23,24,25,26,27];
+var o=function(k,v,o,l){for(o=o||{},l=k.length;l--;o[k[l]]=v);return o},$V0=[1,8],$V1=[1,11],$V2=[1,12],$V3=[13,17,21],$V4=[14,17,21],$V5=[1,32],$V6=[1,31],$V7=[1,34],$V8=[1,33],$V9=[1,36],$Va=[1,37],$Vb=[1,38],$Vc=[1,39],$Vd=[1,40],$Ve=[1,45],$Vf=[19,22],$Vg=[1,46],$Vh=[1,47],$Vi=[1,48],$Vj=[1,49],$Vk=[1,50],$Vl=[1,51],$Vm=[1,52],$Vn=[1,53],$Vo=[1,54],$Vp=[1,55],$Vq=[1,56],$Vr=[1,57],$Vs=[19,22,24,25,27,28,29,30,31,32,33,34,35,36],$Vt=[19,22,24,25,27,28,29,30,31,32],$Vu=[19,22,24,25,31,32],$Vv=[19,22,24,25,27,28,29,30,31,32,33,34];
 var parser = {trace: function trace () { },
 yy: {},
-symbols_: {"error":2,"START":3,"SENTENCIAS_GLOBALES":4,"EOF":5,"SENTENCIA_GLOBAL":6,"IMPRESION":7,";":8,"console":9,".":10,"log":11,"(":12,")":13,"LISTADO_EXPRESIONES":14,",":15,"EXPRESION":16,"&&":17,"||":18,"!":19,"<":20,">":21,"<=":22,">=":23,"==":24,"!=":25,"+":26,"-":27,"*":28,"/":29,"VALOR":30,"digito":31,"decimal":32,"cadena":33,"false":34,"true":35,"$accept":0,"$end":1},
-terminals_: {2:"error",5:"EOF",8:";",9:"console",10:".",11:"log",12:"(",13:")",15:",",17:"&&",18:"||",19:"!",20:"<",21:">",22:"<=",23:">=",24:"==",25:"!=",26:"+",27:"-",28:"*",29:"/",31:"digito",32:"decimal",33:"cadena",34:"false",35:"true"},
-productions_: [0,[3,2],[3,1],[4,2],[4,1],[6,2],[7,5],[7,6],[14,3],[14,1],[16,3],[16,3],[16,2],[16,3],[16,3],[16,3],[16,3],[16,3],[16,3],[16,3],[16,3],[16,3],[16,3],[16,3],[16,2],[16,2],[16,1],[30,1],[30,1],[30,1],[30,1],[30,1]],
+symbols_: {"error":2,"START":3,"program":4,"identificador":5,";":6,"BODY":7,".":8,"EOF":9,"SENTENCIAS_GLOBALES":10,"SENTENCIA_GLOBAL":11,"IMPRESION":12,"begin":13,"end":14,"SENTENCIAS_BODY":15,"SENTENCIA_BODY":16,"write":17,"(":18,")":19,"LISTADO_EXPRESIONES":20,"writeln":21,",":22,"EXPRESION":23,"and":24,"or":25,"not":26,"<":27,">":28,"<=":29,">=":30,"==":31,"!=":32,"+":33,"-":34,"*":35,"/":36,"VALOR":37,"digito":38,"decimal":39,"cadena":40,"false":41,"true":42,"$accept":0,"$end":1},
+terminals_: {2:"error",4:"program",5:"identificador",6:";",8:".",9:"EOF",13:"begin",14:"end",17:"write",18:"(",19:")",21:"writeln",22:",",24:"and",25:"or",26:"not",27:"<",28:">",29:"<=",30:">=",31:"==",32:"!=",33:"+",34:"-",35:"*",36:"/",38:"digito",39:"decimal",40:"cadena",41:"false",42:"true"},
+productions_: [0,[3,6],[3,7],[3,1],[10,2],[10,1],[11,2],[7,2],[7,3],[15,2],[15,1],[16,2],[12,3],[12,4],[12,3],[12,4],[20,3],[20,1],[23,3],[23,3],[23,2],[23,3],[23,3],[23,3],[23,3],[23,3],[23,3],[23,3],[23,3],[23,3],[23,3],[23,3],[23,2],[23,2],[23,1],[37,1],[37,1],[37,1],[37,1],[37,1]],
 performAction: function anonymous(yytext, yyleng, yylineno, yy, yystate /* action[1] */, $$ /* vstack */, _$ /* lstack */) {
 /* this == yyval */
 
@@ -85,88 +85,199 @@ var $0 = $$.length - 1;
 switch (yystate) {
 case 1:
 
-                                      const arbol = new Arbol($$[$0-1].instrucciones);
-                                      arbol.graficaAST = new NodoGrafico('RAIZ', [$$[$0-1].grafica]);
+                                                                          arbol = new Arbol($$[$0-2].instrucciones);
 
-                                      if (excepciones.length > 0) {
-                                        arbol.excepciones.concat(excepciones);
-                                        excepciones = [];
-                                      }
-                                      return arbol;
-                                    
+                                                                          arbol.graficaAST = new NodoGrafico('RAIZ', [
+                                                                            new NodoGrafico('program', []),
+                                                                            new NodoGrafico('identificador', [
+                                                                              new NodoGrafico($$[$0-4], []),
+                                                                            ]),
+                                                                            new NodoGrafico(';', []),
+                                                                            $$[$0-2].grafica,
+                                                                            new NodoGrafico('.', []),
+                                                                          ]);
+
+                                                                          if (excepciones.length > 0) {
+                                                                            arbol.excepciones.concat(excepciones);
+                                                                            excepciones = [];
+                                                                          }
+
+                                                                          return arbol;
+                                                                        
 break;
 case 2:
 
-                                      arbol = new Arbol([]);
-                                      if (excepciones.length > 0) {
-                                        arbol.excepciones = arbol.excepciones.concat(excepciones);
-                                        excepciones = [];
-                                      }
-                                      return arbol;
-                                    
+                                                                          arbol = new Arbol($$[$0-3].instrucciones);
+
+                                                                          arbol.graficaAST = new NodoGrafico('RAIZ', [
+                                                                            new NodoGrafico('program', []),
+                                                                            new NodoGrafico('identificador', [
+                                                                              new NodoGrafico($$[$0-5], []),
+                                                                            ]),
+                                                                            new NodoGrafico(';', []),
+                                                                            $$[$0-3].grafica,
+                                                                            $$[$0-2].grafica,
+                                                                            new NodoGrafico('.', []),
+                                                                          ]);
+
+                                                                          if (excepciones.length > 0) {
+                                                                            arbol.excepciones.concat(excepciones);
+                                                                            excepciones = [];
+                                                                          }
+
+                                                                          return arbol;
+                                                                        
 break;
 case 3:
+
+                                                                          arbol = new Arbol([]);
+                                                                          if (excepciones.length > 0) {
+                                                                            arbol.excepciones = arbol.excepciones.concat(excepciones);
+                                                                            excepciones = [];
+                                                                          }
+                                                                          return arbol;
+                                                                        
+break;
+case 4:
 
                                                                 $$[$0-1].instrucciones.push($$[$0].instrucciones);
                                                                 this.$ = {
                                                                   instrucciones: $$[$0-1].instrucciones,
-                                                                  grafica: new NodoGrafico('SENTENCIAS_GLOBALES',
-                                                                    [$$[$0-1].grafica, $$[$0].grafica]
-                                                                  )
-                                                                }
-                                                              
-break;
-case 4:
-
-                                                                this.$ = {
-                                                                  instrucciones: [$$[$0].instrucciones],
-                                                                  grafica: new NodoGrafico('SENTENCIAS_GLOBALES', [$$[$0].grafica])
-                                                                }
+                                                                  grafica: new NodoGrafico('SENTENCIAS_GLOBALES', [
+                                                                    $$[$0-1].grafica,
+                                                                    $$[$0].grafica,
+                                                                  ]),
+                                                                };
                                                               
 break;
 case 5:
+
+                                                                this.$ = {
+                                                                  instrucciones: [$$[$0].instrucciones],
+                                                                  grafica: new NodoGrafico('SENTENCIAS_GLOBALES', [$$[$0].grafica]),
+                                                                };
+                                                              
+break;
+case 6:
 
                                     this.$ = {
                                       instrucciones: $$[$0-1].instrucciones,
                                       grafica: new NodoGrafico('SENTENCIA_GLOBAL', [
                                         $$[$0-1].grafica,
-                                        new NodoGrafico(';', [])
-                                      ])
-                                    }
+                                        new NodoGrafico(';', []),
+                                      ]),
+                                    };
                                   
-break;
-case 6:
-
-                                                                this.$ = {
-                                                                  instrucciones: new Imprimir([],
-                                                                    this._$.first_line, this._$.first_column),
-                                                                  grafica: new NodoGrafico('IMPRESION', [
-                                                                    new NodoGrafico('console', []),
-                                                                    new NodoGrafico('.', []),
-                                                                    new NodoGrafico('log', []),
-                                                                    new NodoGrafico('(', []),
-                                                                    new NodoGrafico(')', [])
-                                                                  ])
-                                                                }
-                                                              
 break;
 case 7:
 
-                                                                this.$ = {
-                                                                  instrucciones: new Imprimir($$[$0-1].instrucciones,
-                                                                    this._$.first_line, this._$.first_column),
-                                                                  grafica: new NodoGrafico('IMPRESION', [
-                                                                    new NodoGrafico('console', []),
-                                                                    new NodoGrafico('.', []),
-                                                                    new NodoGrafico('log', []),
-                                                                    new NodoGrafico('(', []),
-                                                                    $$[$0-1].grafica,
-                                                                    new NodoGrafico(')', [])
-                                                                  ])
-                                                                }
-                                                              
+                                        this.$ = {
+                                          instrucciones: [],
+                                          grafica: new NodoGrafico('BODY', [
+                                            new NodoGrafico('begin', []),
+                                            new NodoGrafico('end', []),
+                                          ]),
+                                        };
+                                      
 break;
 case 8:
+
+                                        this.$ = {
+                                          instrucciones: $$[$0-1].instrucciones,
+                                          grafica: new NodoGrafico('BODY', [
+                                            new NodoGrafico('begin', []),
+                                            $$[$0-1].grafica,
+                                            new NodoGrafico('end', []),
+                                          ]),
+                                        };
+                                      
+break;
+case 9:
+
+                                                      $$[$0-1].instrucciones.push($$[$0].instrucciones);
+                                                      this.$ = {
+                                                        instrucciones: $$[$0-1].instrucciones,
+                                                        grafica: new NodoGrafico('SENTENCIAS_BODY', [
+                                                          $$[$0-1].grafica,
+                                                          $$[$0].grafica,
+                                                        ]),
+                                                      };
+                                                    
+break;
+case 10:
+
+                                                      this.$ = {
+                                                        instrucciones: [$$[$0].instrucciones],
+                                                        grafica: new NodoGrafico('SENTENCIAS_BODY', [$$[$0].grafica]),
+                                                      };
+                                                    
+break;
+case 11:
+
+                                    this.$ = {
+                                      instrucciones: $$[$0-1].instrucciones,
+                                      grafica: new NodoGrafico('SENTENCIA_BODY', [
+                                        $$[$0-1].grafica,
+                                        new NodoGrafico(';', []),
+                                      ]),
+                                    };
+                                  
+break;
+case 12:
+
+                                                    this.$ = {
+                                                      instrucciones: new Imprimir(Tipo.WRITE, [],
+                                                        this._$.first_line, this._$.first_column),
+                                                      grafica: new NodoGrafico('IMPRESION', [
+                                                        new NodoGrafico('write', []),
+                                                        new NodoGrafico('(', []),
+                                                        new NodoGrafico(')', []),
+                                                      ]),
+                                                    };
+                                                  
+break;
+case 13:
+
+                                                    this.$ = {
+                                                      instrucciones: new Imprimir(Tipo.WRITE, $$[$0-1].instrucciones,
+                                                        this._$.first_line, this._$.first_column),
+                                                      grafica: new NodoGrafico('IMPRESION', [
+                                                        new NodoGrafico('write', []),
+                                                        new NodoGrafico('(', []),
+                                                        $$[$0-1].grafica,
+                                                        new NodoGrafico(')', []),
+                                                      ]),
+                                                    };
+                                                  
+break;
+case 14:
+
+                                                    this.$ = {
+                                                      instrucciones: new Imprimir(Tipo.WRITELN, [],
+                                                        this._$.first_line, this._$.first_column),
+                                                      grafica: new NodoGrafico('IMPRESION', [
+                                                        new NodoGrafico('writeln', []),
+                                                        new NodoGrafico('(', []),
+                                                        new NodoGrafico(')', []),
+                                                      ]),
+                                                    };
+                                                  
+break;
+case 15:
+
+                                                    this.$ = {
+                                                      instrucciones: new Imprimir(Tipo.WRITELN, $$[$0-1].instrucciones,
+                                                        this._$.first_line, this._$.first_column),
+                                                      grafica: new NodoGrafico('IMPRESION', [
+                                                        new NodoGrafico('writeln', []),
+                                                        new NodoGrafico('(', []),
+                                                        $$[$0-1].grafica,
+                                                        new NodoGrafico(')', []),
+                                                      ]),
+                                                    };
+                                                  
+break;
+case 16:
 
                                                             $$[$0-2].instrucciones = $$[$0-2].instrucciones.concat($$[$0].instrucciones);
                                                             this.$ = {
@@ -174,64 +285,64 @@ case 8:
                                                               grafica: new NodoGrafico('LISTADO_EXPRESIONES', [
                                                                 $$[$0-2].grafica,
                                                                 new NodoGrafico(',', []),
-                                                                $$[$0].grafica
+                                                                $$[$0].grafica,
                                                               ]),
-                                                              gramatica: `<LISTADO_EXPRESIONES> ::= <LISTADO_EXPRESIONES> "," <EXPRESION> \n`
+                                                              gramatica: `<LISTADO_EXPRESIONES> ::= <LISTADO_EXPRESIONES> "," <EXPRESION> \n`,
                                                             };
                                                             this.$.gramatica += $$[$0-2].gramatica;
                                                             this.$.gramatica += $$[$0].gramatica;
                                                           
 break;
-case 9:
+case 17:
 
                                                             this.$ = {
                                                               instrucciones: [$$[$0].instrucciones],
                                                               grafica: new NodoGrafico('LISTADO_EXPRESIONES', [
                                                                 $$[$0].grafica
                                                               ]),
-                                                              gramatica: `<LISTADO_EXPRESIONES> ::= <EXPRESION> \n`
+                                                              gramatica: `<LISTADO_EXPRESIONES> ::= <EXPRESION> \n`,
                                                             };
                                                             this.$.gramatica += $$[$0].gramatica;
                                                           
 break;
-case 10:
+case 18:
 
                                           this.$ = {
                                             instrucciones: new And($$[$0-2].instrucciones, $$[$0].instrucciones,
                                               this._$.first_line, this._$.first_column),
                                             grafica: new NodoGrafico('EXPRESION', [
                                               $$[$0-2].grafica,
-                                              new NodoGrafico('&&', []),
+                                              new NodoGrafico('and', []),
                                               $$[$0].grafica
-                                            ])
-                                          }
+                                            ]),
+                                          };
                                         
 break;
-case 11:
+case 19:
 
                                           this.$ = {
                                             instrucciones: new Or($$[$0-2].instrucciones, $$[$0].instrucciones,
                                               this._$.first_line, this._$.first_column),
                                             grafica: new NodoGrafico('EXPRESION', [
                                               $$[$0-2].grafica,
-                                              new NodoGrafico('||', []),
+                                              new NodoGrafico('or', []),
                                               $$[$0].grafica
-                                            ])
-                                          }
+                                            ]),
+                                          };
                                         
 break;
-case 12:
+case 20:
 
                                           this.$ = {
                                             instrucciones: new Not($$[$0].instrucciones,
                                                 this._$.first_line, this._$.first_column),
                                             grafica: new NodoGrafico('EXPRESION', [
-                                              new NodoGrafico('!', [$$[$0].grafica])
-                                            ])
-                                          }
+                                              new NodoGrafico('not', [$$[$0].grafica])
+                                            ]),
+                                          };
                                         
 break;
-case 13:
+case 21:
 
                                           this.$ = {
                                             instrucciones: new Menor($$[$0-2].instrucciones, $$[$0].instrucciones,
@@ -239,12 +350,12 @@ case 13:
                                             grafica: new NodoGrafico('EXPRESION', [
                                               $$[$0-2].grafica,
                                               new NodoGrafico('<', []),
-                                              $$[$0].grafica
-                                            ])
-                                          }
+                                              $$[$0].grafica,
+                                            ]),
+                                          };
                                         
 break;
-case 14:
+case 22:
 
                                           this.$ = {
                                             instrucciones: new Mayor($$[$0-2].instrucciones, $$[$0].instrucciones,
@@ -252,12 +363,12 @@ case 14:
                                             grafica: new NodoGrafico('EXPRESION', [
                                               $$[$0-2].grafica,
                                               new NodoGrafico('>', []),
-                                              $$[$0].grafica
-                                            ])
-                                          }
+                                              $$[$0].grafica,
+                                            ]),
+                                          };
                                         
 break;
-case 15:
+case 23:
 
                                           this.$ = {
                                             instrucciones: new MenorQue($$[$0-2].instrucciones, $$[$0].instrucciones,
@@ -265,12 +376,12 @@ case 15:
                                             grafica: new NodoGrafico('EXPRESION', [
                                               $$[$0-2].grafica,
                                               new NodoGrafico('<=', []),
-                                              $$[$0].grafica
-                                            ])
-                                          }
+                                              $$[$0].grafica,
+                                            ]),
+                                          };
                                         
 break;
-case 16:
+case 24:
 
                                           this.$ = {
                                             instrucciones: new MayorQue($$[$0-2].instrucciones, $$[$0].instrucciones,
@@ -278,12 +389,12 @@ case 16:
                                             grafica: new NodoGrafico('EXPRESION', [
                                               $$[$0-2].grafica,
                                               new NodoGrafico('>=', []),
-                                              $$[$0].grafica
-                                            ])
-                                          }
+                                              $$[$0].grafica,
+                                            ]),
+                                          };
                                         
 break;
-case 17:
+case 25:
 
                                           this.$ = {
                                             instrucciones: new Igualdad($$[$0-2].instrucciones, $$[$0].instrucciones,
@@ -291,12 +402,12 @@ case 17:
                                             grafica: new NodoGrafico('EXPRESION', [
                                               $$[$0-2].grafica,
                                               new NodoGrafico('==', []),
-                                              $$[$0].grafica
-                                            ])
-                                          }
+                                              $$[$0].grafica,
+                                            ]),
+                                          };
                                         
 break;
-case 18:
+case 26:
 
                                           this.$ = {
                                             instrucciones: new Diferencia($$[$0-2].instrucciones, $$[$0].instrucciones,
@@ -304,12 +415,12 @@ case 18:
                                             grafica: new NodoGrafico('EXPRESION', [
                                               $$[$0-2].grafica,
                                               new NodoGrafico('!=', []),
-                                              $$[$0].grafica
-                                            ])
-                                          }
+                                              $$[$0].grafica,
+                                            ]),
+                                          };
                                         
 break;
-case 19:
+case 27:
 
                                             this.$ = {
                                               instrucciones: new Suma($$[$0-2].instrucciones, $$[$0].instrucciones,
@@ -317,12 +428,12 @@ case 19:
                                               grafica: new NodoGrafico('EXPRESION', [
                                                 $$[$0-2].grafica,
                                                 new NodoGrafico('+', []),
-                                                $$[$0].grafica
-                                              ])
-                                            }
+                                                $$[$0].grafica,
+                                              ]),
+                                            };
                                           
 break;
-case 20:
+case 28:
 
                                             this.$ = {
                                               instrucciones: new Resta($$[$0-2].instrucciones, $$[$0].instrucciones,
@@ -330,12 +441,12 @@ case 20:
                                               grafica: new NodoGrafico('EXPRESION', [
                                                 $$[$0-2].grafica,
                                                 new NodoGrafico('-', []),
-                                                $$[$0].grafica
-                                              ])
-                                            }
+                                                $$[$0].grafica,
+                                              ]),
+                                            };
                                           
 break;
-case 21:
+case 29:
 
                                             this.$ = {
                                               instrucciones: new Multiplicacion($$[$0-2].instrucciones, $$[$0].instrucciones,
@@ -343,12 +454,12 @@ case 21:
                                               grafica: new NodoGrafico('EXPRESION', [
                                                 $$[$0-2].grafica,
                                                 new NodoGrafico('*', []),
-                                                $$[$0].grafica
-                                              ])
-                                            }
+                                                $$[$0].grafica,
+                                              ]),
+                                            };
                                           
 break;
-case 22:
+case 30:
 
                                             this.$ = {
                                               instrucciones: new Division($$[$0-2].instrucciones, $$[$0].instrucciones,
@@ -356,117 +467,117 @@ case 22:
                                               grafica: new NodoGrafico('EXPRESION', [
                                                 $$[$0-2].grafica,
                                                 new NodoGrafico('/', []),
-                                                $$[$0].grafica
-                                              ])
-                                            }
+                                                $$[$0].grafica,
+                                              ]),
+                                            };
                                           
 break;
-case 23:
+case 31:
 
                                             this.$ = {
                                               instrucciones: $$[$0-1].instrucciones,
                                               grafica: new NodoGrafico('EXPRESION', [
                                                 new NodoGrafico('(', []),
                                                 $$[$0-1].grafica,
-                                                new NodoGrafico(')', [])
-                                              ])
-                                            }
+                                                new NodoGrafico(')', []),
+                                              ]),
+                                            };
                                           
 break;
-case 24:
+case 32:
 
                                             this.$ = {
                                               instrucciones: new Negativo($$[$0].instrucciones,
                                                 this._$.first_line, this._$.first_column),
                                               grafica: new NodoGrafico('EXPRESION', [
                                                 new NodoGrafico('-', [$$[$0].grafica])
-                                              ])
-                                            }
+                                              ]),
+                                            };
                                           
 break;
-case 25:
+case 33:
 
                                             this.$ = {
                                               instrucciones: new Positivo($$[$0].instrucciones,
                                                 this._$.first_line, this._$.first_column),
                                               grafica: new NodoGrafico('EXPRESION', [
                                                 new NodoGrafico('-', [$$[$0].grafica])
-                                              ])
-                                            }
+                                              ]),
+                                            };
                                           
 break;
-case 26:
+case 34:
 
                                             this.$ = {
                                               instrucciones: $$[$0].instrucciones,
-                                              grafica: new NodoGrafico('EXPRESION', [$$[$0].grafica])
-                                            }
+                                              grafica: new NodoGrafico('EXPRESION', [$$[$0].grafica]),
+                                            };
                                           
 break;
-case 27:
+case 35:
 
                             this.$ = {
-                              instrucciones: new Primitivo(Tipo.PRIMITIVO, Tipo.INTEGER, $$[$0],
+                              instrucciones: new Primitivo(Tipo.INTEGER, $$[$0],
                                 this._$.first_line, this._$.first_column),
 
                               grafica: new NodoGrafico('DIGITO', [
                                 new NodoGrafico($$[$0], [])
-                              ])
-                            }
+                              ]),
+                            };
                           
 break;
-case 28:
+case 36:
 
                             this.$ = {
-                              instrucciones: new Primitivo(Tipo.PRIMITIVO, Tipo.DOUBLE, $$[$0],
+                              instrucciones: new Primitivo(Tipo.REAL, $$[$0],
                                 this._$.first_line, this._$.first_column),
 
                               grafica: new NodoGrafico('DECIMAL', [
-                                new NodoGrafico($$[$0], [])
-                              ])
-                            }
+                                new NodoGrafico($$[$0], []),
+                              ]),
+                            };
                           
 break;
-case 29:
+case 37:
 
                             this.$ = {
-                              instrucciones: new Primitivo(Tipo.PRIMITIVO, Tipo.STRING, $$[$0],
+                              instrucciones: new Primitivo(Tipo.STRING, $$[$0],
                                 this._$.first_line, this._$.first_column),
 
                               grafica: new NodoGrafico('CADENA', [
-                                new NodoGrafico($$[$0], [])
-                              ])
-                            }
+                                new NodoGrafico($$[$0], []),
+                              ]),
+                            };
                           
 break;
-case 30:
+case 38:
 
                             this.$ = {
-                              instrucciones: new Primitivo(Tipo.PRIMITIVO, Tipo.BOOLEAN, false,
+                              instrucciones: new Primitivo(Tipo.BOOLEAN, false,
                                 this._$.first_line, this._$.first_column),
 
                               grafica: new NodoGrafico('BOOLEAN', [
-                                new NodoGrafico('false', [])
-                              ])
-                            }
+                                new NodoGrafico('false', []),
+                              ]),
+                            };
                           
 break;
-case 31:
+case 39:
 
                             this.$ = {
-                              instrucciones: new Primitivo(Tipo.PRIMITIVO, Tipo.BOOLEAN, true,
+                              instrucciones: new Primitivo(Tipo.BOOLEAN, true,
                                 this._$.first_line, this._$.first_column),
 
                               grafica: new NodoGrafico('BOOLEAN', [
-                                new NodoGrafico('true', [])
-                              ])
-                            }
+                                new NodoGrafico('true', []),
+                              ]),
+                            };
                           
 break;
 }
 },
-table: [{3:1,4:2,5:[1,3],6:4,7:5,9:$V0},{1:[3]},{5:[1,7],6:8,7:5,9:$V0},{1:[2,2]},o($V1,[2,4]),{8:[1,9]},{10:[1,10]},{1:[2,1]},o($V1,[2,3]),o($V1,[2,5]),{11:[1,11]},{12:[1,12]},{12:$V2,13:[1,13],14:14,16:15,19:$V3,26:$V4,27:$V5,30:20,31:$V6,32:$V7,33:$V8,34:$V9,35:$Va},{8:[2,6]},{13:[1,26],15:[1,27]},o($Vb,[2,9],{17:$Vc,18:$Vd,20:$Ve,21:$Vf,22:$Vg,23:$Vh,24:$Vi,25:$Vj,26:$Vk,27:$Vl,28:$Vm,29:$Vn}),{12:$V2,16:40,19:$V3,26:$V4,27:$V5,30:20,31:$V6,32:$V7,33:$V8,34:$V9,35:$Va},{12:$V2,16:41,19:$V3,26:$V4,27:$V5,30:20,31:$V6,32:$V7,33:$V8,34:$V9,35:$Va},{12:$V2,16:42,19:$V3,26:$V4,27:$V5,30:20,31:$V6,32:$V7,33:$V8,34:$V9,35:$Va},{12:$V2,16:43,19:$V3,26:$V4,27:$V5,30:20,31:$V6,32:$V7,33:$V8,34:$V9,35:$Va},o($Vo,[2,26]),o($Vo,[2,27]),o($Vo,[2,28]),o($Vo,[2,29]),o($Vo,[2,30]),o($Vo,[2,31]),{8:[2,7]},{12:$V2,16:44,19:$V3,26:$V4,27:$V5,30:20,31:$V6,32:$V7,33:$V8,34:$V9,35:$Va},{12:$V2,16:45,19:$V3,26:$V4,27:$V5,30:20,31:$V6,32:$V7,33:$V8,34:$V9,35:$Va},{12:$V2,16:46,19:$V3,26:$V4,27:$V5,30:20,31:$V6,32:$V7,33:$V8,34:$V9,35:$Va},{12:$V2,16:47,19:$V3,26:$V4,27:$V5,30:20,31:$V6,32:$V7,33:$V8,34:$V9,35:$Va},{12:$V2,16:48,19:$V3,26:$V4,27:$V5,30:20,31:$V6,32:$V7,33:$V8,34:$V9,35:$Va},{12:$V2,16:49,19:$V3,26:$V4,27:$V5,30:20,31:$V6,32:$V7,33:$V8,34:$V9,35:$Va},{12:$V2,16:50,19:$V3,26:$V4,27:$V5,30:20,31:$V6,32:$V7,33:$V8,34:$V9,35:$Va},{12:$V2,16:51,19:$V3,26:$V4,27:$V5,30:20,31:$V6,32:$V7,33:$V8,34:$V9,35:$Va},{12:$V2,16:52,19:$V3,26:$V4,27:$V5,30:20,31:$V6,32:$V7,33:$V8,34:$V9,35:$Va},{12:$V2,16:53,19:$V3,26:$V4,27:$V5,30:20,31:$V6,32:$V7,33:$V8,34:$V9,35:$Va},{12:$V2,16:54,19:$V3,26:$V4,27:$V5,30:20,31:$V6,32:$V7,33:$V8,34:$V9,35:$Va},{12:$V2,16:55,19:$V3,26:$V4,27:$V5,30:20,31:$V6,32:$V7,33:$V8,34:$V9,35:$Va},{12:$V2,16:56,19:$V3,26:$V4,27:$V5,30:20,31:$V6,32:$V7,33:$V8,34:$V9,35:$Va},o($Vo,[2,12]),{13:[1,57],17:$Vc,18:$Vd,20:$Ve,21:$Vf,22:$Vg,23:$Vh,24:$Vi,25:$Vj,26:$Vk,27:$Vl,28:$Vm,29:$Vn},o($Vo,[2,24]),o($Vo,[2,25]),o($Vb,[2,8],{17:$Vc,18:$Vd,20:$Ve,21:$Vf,22:$Vg,23:$Vh,24:$Vi,25:$Vj,26:$Vk,27:$Vl,28:$Vm,29:$Vn}),o([13,15,17,18],[2,10],{20:$Ve,21:$Vf,22:$Vg,23:$Vh,24:$Vi,25:$Vj,26:$Vk,27:$Vl,28:$Vm,29:$Vn}),o([13,15,18],[2,11],{17:$Vc,20:$Ve,21:$Vf,22:$Vg,23:$Vh,24:$Vi,25:$Vj,26:$Vk,27:$Vl,28:$Vm,29:$Vn}),o($Vp,[2,13],{26:$Vk,27:$Vl,28:$Vm,29:$Vn}),o($Vp,[2,14],{26:$Vk,27:$Vl,28:$Vm,29:$Vn}),o($Vp,[2,15],{26:$Vk,27:$Vl,28:$Vm,29:$Vn}),o($Vp,[2,16],{26:$Vk,27:$Vl,28:$Vm,29:$Vn}),o($Vq,[2,17],{20:$Ve,21:$Vf,22:$Vg,23:$Vh,26:$Vk,27:$Vl,28:$Vm,29:$Vn}),o($Vq,[2,18],{20:$Ve,21:$Vf,22:$Vg,23:$Vh,26:$Vk,27:$Vl,28:$Vm,29:$Vn}),o($Vr,[2,19],{28:$Vm,29:$Vn}),o($Vr,[2,20],{28:$Vm,29:$Vn}),o($Vo,[2,21]),o($Vo,[2,22]),o($Vo,[2,23])],
-defaultActions: {3:[2,2],7:[2,1],13:[2,6],26:[2,7]},
+table: [{3:1,4:[1,2],9:[1,3]},{1:[3]},{5:[1,4]},{1:[2,3]},{6:[1,5]},{7:6,10:7,11:9,12:10,13:$V0,17:$V1,21:$V2},{8:[1,13]},{7:14,11:15,12:10,13:$V0,17:$V1,21:$V2},{12:19,14:[1,16],15:17,16:18,17:$V1,21:$V2},o($V3,[2,5]),{6:[1,20]},{18:[1,21]},{18:[1,22]},{9:[1,23]},{8:[1,24]},o($V3,[2,4]),{8:[2,7]},{12:19,14:[1,25],16:26,17:$V1,21:$V2},o($V4,[2,10]),{6:[1,27]},o($V3,[2,6]),{18:$V5,19:[1,28],20:29,23:30,26:$V6,33:$V7,34:$V8,37:35,38:$V9,39:$Va,40:$Vb,41:$Vc,42:$Vd},{18:$V5,19:[1,41],20:42,23:30,26:$V6,33:$V7,34:$V8,37:35,38:$V9,39:$Va,40:$Vb,41:$Vc,42:$Vd},{1:[2,1]},{9:[1,43]},{8:[2,8]},o($V4,[2,9]),o($V4,[2,11]),{6:[2,12]},{19:[1,44],22:$Ve},o($Vf,[2,17],{24:$Vg,25:$Vh,27:$Vi,28:$Vj,29:$Vk,30:$Vl,31:$Vm,32:$Vn,33:$Vo,34:$Vp,35:$Vq,36:$Vr}),{18:$V5,23:58,26:$V6,33:$V7,34:$V8,37:35,38:$V9,39:$Va,40:$Vb,41:$Vc,42:$Vd},{18:$V5,23:59,26:$V6,33:$V7,34:$V8,37:35,38:$V9,39:$Va,40:$Vb,41:$Vc,42:$Vd},{18:$V5,23:60,26:$V6,33:$V7,34:$V8,37:35,38:$V9,39:$Va,40:$Vb,41:$Vc,42:$Vd},{18:$V5,23:61,26:$V6,33:$V7,34:$V8,37:35,38:$V9,39:$Va,40:$Vb,41:$Vc,42:$Vd},o($Vs,[2,34]),o($Vs,[2,35]),o($Vs,[2,36]),o($Vs,[2,37]),o($Vs,[2,38]),o($Vs,[2,39]),{6:[2,14]},{19:[1,62],22:$Ve},{1:[2,2]},{6:[2,13]},{18:$V5,23:63,26:$V6,33:$V7,34:$V8,37:35,38:$V9,39:$Va,40:$Vb,41:$Vc,42:$Vd},{18:$V5,23:64,26:$V6,33:$V7,34:$V8,37:35,38:$V9,39:$Va,40:$Vb,41:$Vc,42:$Vd},{18:$V5,23:65,26:$V6,33:$V7,34:$V8,37:35,38:$V9,39:$Va,40:$Vb,41:$Vc,42:$Vd},{18:$V5,23:66,26:$V6,33:$V7,34:$V8,37:35,38:$V9,39:$Va,40:$Vb,41:$Vc,42:$Vd},{18:$V5,23:67,26:$V6,33:$V7,34:$V8,37:35,38:$V9,39:$Va,40:$Vb,41:$Vc,42:$Vd},{18:$V5,23:68,26:$V6,33:$V7,34:$V8,37:35,38:$V9,39:$Va,40:$Vb,41:$Vc,42:$Vd},{18:$V5,23:69,26:$V6,33:$V7,34:$V8,37:35,38:$V9,39:$Va,40:$Vb,41:$Vc,42:$Vd},{18:$V5,23:70,26:$V6,33:$V7,34:$V8,37:35,38:$V9,39:$Va,40:$Vb,41:$Vc,42:$Vd},{18:$V5,23:71,26:$V6,33:$V7,34:$V8,37:35,38:$V9,39:$Va,40:$Vb,41:$Vc,42:$Vd},{18:$V5,23:72,26:$V6,33:$V7,34:$V8,37:35,38:$V9,39:$Va,40:$Vb,41:$Vc,42:$Vd},{18:$V5,23:73,26:$V6,33:$V7,34:$V8,37:35,38:$V9,39:$Va,40:$Vb,41:$Vc,42:$Vd},{18:$V5,23:74,26:$V6,33:$V7,34:$V8,37:35,38:$V9,39:$Va,40:$Vb,41:$Vc,42:$Vd},{18:$V5,23:75,26:$V6,33:$V7,34:$V8,37:35,38:$V9,39:$Va,40:$Vb,41:$Vc,42:$Vd},o($Vs,[2,20]),{19:[1,76],24:$Vg,25:$Vh,27:$Vi,28:$Vj,29:$Vk,30:$Vl,31:$Vm,32:$Vn,33:$Vo,34:$Vp,35:$Vq,36:$Vr},o($Vs,[2,32]),o($Vs,[2,33]),{6:[2,15]},o($Vf,[2,16],{24:$Vg,25:$Vh,27:$Vi,28:$Vj,29:$Vk,30:$Vl,31:$Vm,32:$Vn,33:$Vo,34:$Vp,35:$Vq,36:$Vr}),o([19,22,24,25],[2,18],{27:$Vi,28:$Vj,29:$Vk,30:$Vl,31:$Vm,32:$Vn,33:$Vo,34:$Vp,35:$Vq,36:$Vr}),o([19,22,25],[2,19],{24:$Vg,27:$Vi,28:$Vj,29:$Vk,30:$Vl,31:$Vm,32:$Vn,33:$Vo,34:$Vp,35:$Vq,36:$Vr}),o($Vt,[2,21],{33:$Vo,34:$Vp,35:$Vq,36:$Vr}),o($Vt,[2,22],{33:$Vo,34:$Vp,35:$Vq,36:$Vr}),o($Vt,[2,23],{33:$Vo,34:$Vp,35:$Vq,36:$Vr}),o($Vt,[2,24],{33:$Vo,34:$Vp,35:$Vq,36:$Vr}),o($Vu,[2,25],{27:$Vi,28:$Vj,29:$Vk,30:$Vl,33:$Vo,34:$Vp,35:$Vq,36:$Vr}),o($Vu,[2,26],{27:$Vi,28:$Vj,29:$Vk,30:$Vl,33:$Vo,34:$Vp,35:$Vq,36:$Vr}),o($Vv,[2,27],{35:$Vq,36:$Vr}),o($Vv,[2,28],{35:$Vq,36:$Vr}),o($Vs,[2,29]),o($Vs,[2,30]),o($Vs,[2,31])],
+defaultActions: {3:[2,3],16:[2,7],23:[2,1],25:[2,8],28:[2,12],41:[2,14],43:[2,2],44:[2,13],62:[2,15]},
 parseError: function parseError (str, hash) {
     if (hash.recoverable) {
         this.trace(str);
@@ -969,7 +1080,7 @@ pushState:function pushState (condition) {
 stateStackSize:function stateStackSize() {
         return this.conditionStack.length;
     },
-options: {"case-sensitive":true},
+options: {"case-insensitive":true},
 performAction: function anonymous(yy,yy_,$avoiding_name_collisions,YY_START) {
 var YYSTATE=YY_START;
 switch($avoiding_name_collisions) {
@@ -981,21 +1092,21 @@ case 2:return '{'
 break;
 case 3:return '}'
 break;
-case 4:return 12
+case 4:return 18
 break;
-case 5:return 13
+case 5:return 19
 break;
 case 6:return '['
 break;
 case 7:return ']'
 break;
-case 8:return 15
+case 8:return 22
 break;
-case 9:return 10
+case 9:return 8
 break;
 case 10:return ':'
 break;
-case 11:return 8
+case 11:return 6
 break;
 case 12:return 'integer'
 break;
@@ -1003,71 +1114,77 @@ case 13:return 'string'
 break;
 case 14:return 'boolean'
 break;
-case 15:return 'double'
+case 15:return 'real'
 break;
 case 16:return 'void'
 break;
-case 17:return 34
+case 17:return 41
 break;
-case 18:return 35
+case 18:return 42
 break;
 case 19:return 'null'
 break;
-case 20:return 9
+case 20:return 4
 break;
-case 21:return 11
+case 21:return 13
 break;
-case 22:return 22
+case 22:return  'end'
 break;
-case 23:return 20
+case 23:return 17
 break;
-case 24:return 24
+case 24:return 21
 break;
-case 25:return 23
+case 25:return 29
 break;
-case 26:return 21
+case 26:return 27
 break;
-case 27:return 25
+case 27:return 31
 break;
-case 28:return 18
+case 28:return 30
 break;
-case 29:return 17
+case 29:return 28
 break;
-case 30:return 19
+case 30:return 32
 break;
-case 31:return '='
+case 31:return 25
 break;
-case 32:return 26
+case 32:return 24
 break;
-case 33:return 27
+case 33:return 26
 break;
-case 34:return '**'
+case 34:return '='
 break;
-case 35:return 28
+case 35:return 33
 break;
-case 36:return 29
+case 36:return 34
 break;
-case 37:return '%'
+case 37:return '**'
 break;
-case 38:return 'identificador'
+case 38:return 35
 break;
-case 39:return 32
+case 39:return 36
 break;
-case 40:return 31
+case 40:return '%'
 break;
-case 41: yy_.yytext = yy_.yytext.substr(1,yy_.yyleng-2); return 33; 
+case 41:return 5
 break;
-case 42:return 5;
+case 42:return 39
 break;
-case 43:
+case 43:return 38
+break;
+case 44: yy_.yytext = yy_.yytext.substr(1,yy_.yyleng-2); return 40; 
+break;
+case 45:return 9;
+break;
+case 46:
                           excepciones.push(new Excepcion('Léxico', yy_.yylloc.first_line, yy_.yylloc.first_column, `Patrón desconocido ${yy_.yytext}`));
                           console.error(`Error Léxico: ${yy_.yytext} en la linea ${yy_.yylloc.first_line} y columna ${yy_.yylloc.first_column}`);
                         
 break;
 }
 },
-rules: [/^(?:\s+)/,/^(?:((\/\*[\s\S]*?\*\/|\/\/.*)))/,/^(?:\{)/,/^(?:\})/,/^(?:\()/,/^(?:\))/,/^(?:\[)/,/^(?:\])/,/^(?:,)/,/^(?:\.)/,/^(?::)/,/^(?:;)/,/^(?:integer\b)/,/^(?:string\b)/,/^(?:boolean\b)/,/^(?:double\b)/,/^(?:void\b)/,/^(?:false\b)/,/^(?:true\b)/,/^(?:null\b)/,/^(?:console\b)/,/^(?:log\b)/,/^(?:<=)/,/^(?:<)/,/^(?:==)/,/^(?:>=)/,/^(?:>)/,/^(?:!=)/,/^(?:\|\|)/,/^(?:&&)/,/^(?:!)/,/^(?:=)/,/^(?:\+)/,/^(?:-)/,/^(?:\*\*)/,/^(?:\*)/,/^(?:\/)/,/^(?:%)/,/^(?:((([a-zA-Z_])[a-zA-Z0-9_]*)))/,/^(?:(((([0-9]+))\.(([0-9]+))+)))/,/^(?:(([0-9]+)))/,/^(?:(((((("))|(('))))((?:\\(((("))|(('))))|(?:(?!(((("))|(('))))).))*)(((("))|((')))))))/,/^(?:$)/,/^(?:.)/],
-conditions: {"INITIAL":{"rules":[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43],"inclusive":true}}
+rules: [/^(?:\s+)/i,/^(?:((\/\*[\s\S]*?\*\/|\/\/.*)))/i,/^(?:\{)/i,/^(?:\})/i,/^(?:\()/i,/^(?:\))/i,/^(?:\[)/i,/^(?:\])/i,/^(?:,)/i,/^(?:\.)/i,/^(?::)/i,/^(?:;)/i,/^(?:integer\b)/i,/^(?:string\b)/i,/^(?:boolean\b)/i,/^(?:real\b)/i,/^(?:void\b)/i,/^(?:false\b)/i,/^(?:true\b)/i,/^(?:null\b)/i,/^(?:program\b)/i,/^(?:begin\b)/i,/^(?:end\b)/i,/^(?:write\b)/i,/^(?:writeln\b)/i,/^(?:<=)/i,/^(?:<)/i,/^(?:==)/i,/^(?:>=)/i,/^(?:>)/i,/^(?:!=)/i,/^(?:or\b)/i,/^(?:and\b)/i,/^(?:not\b)/i,/^(?:=)/i,/^(?:\+)/i,/^(?:-)/i,/^(?:\*\*)/i,/^(?:\*)/i,/^(?:\/)/i,/^(?:%)/i,/^(?:((([a-zA-Z_])[a-zA-Z0-9_]*)))/i,/^(?:(((([0-9]+))\.(([0-9]+))+)))/i,/^(?:(([0-9]+)))/i,/^(?:(('((?:\\'|(?:(?!').))*)')))/i,/^(?:$)/i,/^(?:.)/i],
+conditions: {"INITIAL":{"rules":[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46],"inclusive":true}}
 });
 return lexer;
 })();
