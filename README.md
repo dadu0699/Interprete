@@ -117,7 +117,7 @@ ng add angular-cli-ghpages
 ```
 
 ## Despliegue<a name="despliegue"></a>
-Para realizar el despliegue en github pages es solo se debe ejecutar el siguiente comando
+Para realizar el despliegue en github pages solo se debe ejecutar el siguiente comando
 ```
 ng deploy --base-href "https://USERNAME.github.io/REPOSITORY_NAME/"
 ```
