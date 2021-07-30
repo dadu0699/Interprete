@@ -107,8 +107,7 @@ Para poder utilizar nuestra gramática es necesario agregar las siguiente línea
 
 El cual permite importar nuestra gramática de la siguiente manera
 ```ts
-// parser es el alias que se le dio al import 
-import { parser } from 'src/app/utils/gramatica/gramatica.js';
+import { parser as Parser } from 'src/app/utils/gramatica/gramatica.js';
 ```
 
 ### Angular-cli-ghpages v1.0.0<a name="ghpages"></a>

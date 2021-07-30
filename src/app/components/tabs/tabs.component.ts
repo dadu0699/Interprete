@@ -4,7 +4,7 @@ import { MatTabChangeEvent } from '@angular/material/tabs';
 
 import { DataService } from 'src/app/services/data.service'
 
-import { parser } from 'src/app/utils/gramatica/gramatica.js';
+import { parser as Parser } from 'src/app/utils/gramatica/gramatica.js';
 
 import { Arbol } from 'src/app/models/arbol.model';
 import { Tabla } from 'src/app/models/tabla.model';
@@ -94,7 +94,7 @@ export class TabsComponent implements OnInit {
   }
 
   public ejecutar(): void {
-    const arbol: Arbol = <Arbol>parser.parse(
+    const arbol: Arbol = <Arbol>Parser.parse(
       this.tabs[this.indexTab]['content']
     );
     const tabla: Tabla = new Tabla('Global', undefined);
