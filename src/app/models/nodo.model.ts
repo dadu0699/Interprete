@@ -1,6 +1,6 @@
-import { Arbol } from "./arbol.model";
-import { Tabla } from "./tabla.model";
-import { Tipo } from "./tipo.model";
+import { Arbol } from './arbol.model';
+import { Tabla } from './tabla.model';
+import { Tipo } from './tipo.model';
 
 export abstract class Nodo {
   public linea: number;

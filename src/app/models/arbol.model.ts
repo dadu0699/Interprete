@@ -1,6 +1,6 @@
-import { NodoGrafico } from "../utils/reports/nodoGrafico";
-import { Excepcion } from "./excepcion.model";
-import { Nodo } from "./nodo.model";
+import { NodoGrafico } from '../utils/reports/nodoGrafico';
+import { Excepcion } from './excepcion.model';
+import { Nodo } from './nodo.model';
 
 export class Arbol {
   public instrucciones: Array<Nodo>;
