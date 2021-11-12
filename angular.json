@@ -116,10 +116,6 @@
               "node_modules/echarts/dist/echarts.min.js"
             ]
           }
-        },
-        "deploy": {
-          "builder": "angular-cli-ghpages:deploy",
-          "options": {}
         }
       }
     }

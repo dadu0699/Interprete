@@ -11,8 +11,6 @@ Este proyecto se generó con [Angular CLI](https://github.com/angular/angular-cl
   - [CodeMirror](#codeMirror)
   - [ECharts](#eCharts)
   - [Jison](#jison)
-  - [Angular-cli-ghpages](#ghpages)
-- [Despliegue](#despliegue)
 
 ## Ejecucion<a name="ejecucion"></a>
 
@@ -130,20 +128,4 @@ El cual permite importar nuestra gramática de la siguiente manera
 
 ```ts
 import { parser as Parser } from "src/app/utils/gramatica/gramatica.js";
-```
-
-### Angular-cli-ghpages v1.0.0<a name="ghpages"></a>
-
-Módulo el cual permite desplegar el proyecto en github pages, para esto se necesitó instalar de manera global en el equipo
-
-```
-ng add angular-cli-ghpages
-```
-
-## Despliegue<a name="despliegue"></a>
-
-Para realizar el despliegue en github pages solo se debe ejecutar el siguiente comando
-
-```
-ng deploy --base-href "https://USERNAME.github.io/REPOSITORY_NAME/"
 ```
