@@ -32,7 +32,7 @@ ng serve
 
 Dependencias utilizadas en la creación del intérprete
 
-### Angular Material v12.0.2<a name="angularMaterial"></a>
+### Angular Material v13.0.1<a name="angularMaterial"></a>
 
 Módulo de diseño material para componentes de angular, el cual se instaló a través del siguiente comando
 
@@ -40,7 +40,7 @@ Módulo de diseño material para componentes de angular, el cual se instaló a t
 ng add @angular/material
 ```
 
-### Bootstrap v5.0.1<a name="bootstrap"></a>
+### Bootstrap v5.1.3<a name="bootstrap"></a>
 
 Módulo de diseño, el cual se instaló a través del siguiente comando
 
@@ -63,7 +63,7 @@ Luego de la instalación se agregaron las siguientes líneas en las áreas de **
 ...
 ```
 
-### CodeMirror v5.62.0<a name="codeMirror"></a>
+### CodeMirror v5.63.3<a name="codeMirror"></a>
 
 Módulo de diseño el cual permite agregar un editor de texto o código, el cual se instaló a través del siguiente comando
 
@@ -81,7 +81,7 @@ Luego de la instalación se agregó las siguiente sección **_allowedCommonJsDep
 ...
 ```
 
-### ECharts v5.1.1<a name="eCharts"></a>
+### ECharts v5.2.2<a name="eCharts"></a>
 
 Módulo de diseño el cual permite agregar gráficas, el cual permitió crear el AST, se instaló a través de los siguientes comandos
 
